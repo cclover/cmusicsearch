@@ -14,7 +14,7 @@ namespace MusicSearch.BaiduQuickMusic
     public class MainSearch : IMusicSearch
     {
         #region 接口实现
-         /// <summary>
+        /// <summary>
         /// 分析百度快速搜索
         /// </summary>
         public List<MusicInfo> PageAnalysis(string PageContent)
@@ -57,7 +57,7 @@ namespace MusicSearch.BaiduQuickMusic
             try
             {
                 string baiduQuickUrl = "http://box.zhangmen.baidu.com/x?op=12&count=1&title={0}$${1}$$$$";
-                return string.Format(baiduQuickUrl, new object[] { info.MusicName + CommonSymbol.SYMBOL_SPACE + info.SingerName, info.MusicFormat.ToString("D") });
+                return string.Format(baiduQuickUrl, new object[] { info.MusicName, info.SingerName });
             }
             catch
             {
@@ -88,7 +88,7 @@ namespace MusicSearch.BaiduQuickMusic
             string decodeName = node.SelectSingleNode("decode").InnerText;
             string musicType = node.SelectSingleNode("type").InnerText.ToUpper();
             string lrcid = node.SelectSingleNode("lrcid").InnerText;
-            musicInfo.MusicSource = "百度音乐";
+            musicInfo.MusicSource = "百度音乐快搜";
 
             // 获取真实的歌曲地址，地址或歌名为空时返回null
             if (!string.IsNullOrEmpty(encodeUrl) && !string.IsNullOrEmpty(decodeName))
@@ -115,7 +115,7 @@ namespace MusicSearch.BaiduQuickMusic
             try
             {
                 // 获取歌词地址
-                musicInfo.LyricUrl = "http://box.zhangmen.baidu.com/bdlrc/" + ulong.Parse(lrcid) / 100 + "/" + lrcid + ".lrc";
+                // musicInfo.LyricUrl = "http://box.zhangmen.baidu.com/bdlrc/" + ulong.Parse(lrcid) / 100 + "/" + lrcid + ".lrc";
             }
             catch
             {
