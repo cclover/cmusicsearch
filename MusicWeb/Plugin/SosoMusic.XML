@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SosoMusic</name>
+    </assembly>
+    <members>
+        <member name="M:MusicSearch.SosoMusic.MainSearch.PageAnalysis(System.String)">
+            <summary>
+            分析搜搜音乐搜索
+            </summary>
+        </member>
+        <member name="M:MusicSearch.SosoMusic.MainSearch.CreateMusicUrl(MusicSearch.MusicCommon.SearchMusicInfo)">
+            <summary>
+            创建音乐获取URL
+            </summary>
+            <param name="info">音乐搜索信息</param>
+            <returns>URL</returns>
+        </member>
+        <member name="M:MusicSearch.SosoMusic.MainSearch.MusicInfoBuild(System.String)">
+            <summary>
+            分析返回的DIV快内的歌曲信息
+            </summary>
+            <param name="tr">歌曲TR块的HTML信息</param>
+            <returns>TR块中歌曲信息列表</returns>
+        </member>
+    </members>
+</doc>
