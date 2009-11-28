@@ -51,7 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\MusicCommon\MusicCommon.csproj">
+    <ProjectReference Include="..\MusicCommon\MusicCommon.csproj">
       <Project>{722B5BB4-683A-438A-9B5A-620459AAA68B}</Project>
       <Name>MusicCommon</Name>
     </ProjectReference>

@@ -59,7 +59,7 @@
     <Compile Include="Runner.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ISearch\ISearch.csproj">
+    <ProjectReference Include="..\ISearch\ISearch.csproj">
       <Project>{F0740208-8220-4381-AABF-279C86B090EF}</Project>
       <Name>ISearch</Name>
     </ProjectReference>

@@ -5,14 +5,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicWeb", "MusicWeb\MusicW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{DB6DE06A-4171-4FEA-BAC3-087E4C2DB15C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCommon", "Core\MusicCommon\MusicCommon.csproj", "{722B5BB4-683A-438A-9B5A-620459AAA68B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCommon", "MusicCommon\MusicCommon.csproj", "{722B5BB4-683A-438A-9B5A-620459AAA68B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCrawler", "Core\MusicCrawler\MusicCrawler.csproj", "{D662410C-68DE-4F7C-A024-2229A8BB2AEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCrawler", "MusicCrawler\MusicCrawler.csproj", "{D662410C-68DE-4F7C-A024-2229A8BB2AEC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{722B5BB4-683A-438A-9B5A-620459AAA68B} = {722B5BB4-683A-438A-9B5A-620459AAA68B}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicRunner", "Core\MusicRunner\MusicRunner.csproj", "{6109E934-FF54-4065-9CD2-46D17CFDB0A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicRunner", "MusicRunner\MusicRunner.csproj", "{6109E934-FF54-4065-9CD2-46D17CFDB0A0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{722B5BB4-683A-438A-9B5A-620459AAA68B} = {722B5BB4-683A-438A-9B5A-620459AAA68B}
 	EndProjectSection
