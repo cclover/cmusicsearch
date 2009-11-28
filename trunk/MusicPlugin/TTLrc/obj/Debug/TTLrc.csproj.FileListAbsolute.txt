@@ -1,9 +1,0 @@
-E:\SsfXSoftware\Library\MusicSearch\TTLrc\obj\Debug\ResolveAssemblyReference.cache
-E:\SsfXSoftware\Library\MusicSearch\TTLrc\obj\Debug\TTLrc.dll
-E:\SsfXSoftware\Library\MusicSearch\TTLrc\obj\Debug\TTLrc.pdb
-E:\SsfXSoftware\Library\MusicSearch\bin\Plugin\TTLrc.XML
-E:\SsfXSoftware\Library\MusicSearch\bin\Plugin\TTLrc.dll
-E:\SsfXSoftware\Library\MusicSearch\bin\Plugin\TTLrc.pdb
-E:\SsfXSoftware\Library\MusicSearch\MusicPlugin\TTLrc\obj\Debug\ResolveAssemblyReference.cache
-E:\SsfXSoftware\Library\MusicSearch\MusicPlugin\TTLrc\obj\Debug\TTLrc.dll
-E:\SsfXSoftware\Library\MusicSearch\MusicPlugin\TTLrc\obj\Debug\TTLrc.pdb
