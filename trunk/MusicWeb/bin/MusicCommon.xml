@@ -1,0 +1,483 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MusicCommon</name>
+    </assembly>
+    <members>
+        <member name="M:MusicSearch.MusicCommon.IMusicSearch.PageAnalysis(System.String)">
+            <summary>
+            音乐网页采集时
+            根据不同的音乐站点的网站结构
+            构建不同的采集方式
+            主要采集歌曲
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.IMusicSearch.CreateMusicUrl(MusicSearch.MusicCommon.SearchMusicInfo)">
+            <summary>
+            创建音乐获取URL
+            </summary>
+            <param name="info">音乐搜索信息</param>
+            <returns>URL</returns>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.SearchConfig.TIME_OUT">
+            <summary>
+            默认超时时间10秒
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.SearchConfig.TRY_TIME">
+            <summary>
+            默认重试次数2次
+            </summary>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.SearchMusicFormat">
+            <summary>
+            可搜索的音乐文件格式
+            </summary>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.MusicOperator">
+            <summary>
+            音乐信息的操作类
+            </summary>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.MusicOperator.GetMusicFormat(System.String)">
+            <summary>
+            通过音乐地址获得歌曲格式
+            </summary>
+            <param name="musicUrl">音乐地址</param>
+            <returns>音乐格式，格式错误则返回None</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.MusicOperator.GetMusicFileName(System.String)">
+            <summary>
+            通过音乐地址获得文件名
+            </summary>
+            <param name="musicUrl">音乐地址</param>
+            <returns>音乐文件名</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.MusicOperator.GetMusicUrlList(System.String)">
+            <summary>
+            获取指定字符串中的音乐地址
+            </summary>
+            <param name="urlString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.MusicOperator.urlIsValid(System.String)">
+            <summary>
+            检验音乐地址是否有效
+            </summary>
+            <param name="musicUrl">音乐地址</param>
+            <returns>true:有效;false:无效</returns>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.MusicInfo">
+            <summary>
+            音乐信息的实体类
+            </summary>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.MusicInfo.Clone">
+            <summary>
+            对象的浅拷贝
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicInfo.MusicName">
+            <summary>
+            歌曲名
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicInfo.SingerName">
+            <summary>
+            歌手名
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicInfo.MusicUrl">
+            <summary>
+            歌曲地址
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicInfo.Album">
+            <summary>
+            歌曲专辑
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicInfo.MusicFormat">
+            <summary>
+            歌曲格式
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicInfo.LyricUrl">
+            <summary>
+            歌词地址
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicInfo.MusicFileName">
+            <summary>
+            歌曲文件名
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicInfo.MusicSource">
+            <summary>
+            歌曲来源
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicInfo.MusicSize">
+            <summary>
+            歌曲大小
+            </summary>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.SearchType">
+            <summary>
+            搜索类型
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.SearchType.MusicName">
+            <summary>
+            按音乐名称搜索
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.SearchType.Singer">
+            <summary>
+            按歌手搜索
+            </summary>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.MusicFormats">
+            <summary>
+            音乐文件常用格式
+            </summary>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.SearchMusicInfo">
+            <summary>
+            音乐搜索的实体类
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.SearchMusicInfo.MusicName">
+            <summary>
+            歌曲名
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.SearchMusicInfo.SingerName">
+            <summary>
+            歌手名
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.SearchMusicInfo.MusicLrcID">
+            <summary>
+            要搜索的歌词ID
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.SearchMusicInfo.MusicFormat">
+            <summary>
+            搜索的音乐格式
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.SearchMusicInfo.Type">
+            <summary>
+            搜索的类型
+            </summary>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.RegexHelper">
+            <summary>
+            正则表达式操作类
+            </summary>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.RegexHelper.GetRegexString(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            获取与正则表达式匹配的字符串
+            </summary>
+            <param name="filter">需要过滤的字符串</param>
+            <param name="patten">正则表达式</param>
+            <returns>匹配后的字符串</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.RegexHelper.IsFormat(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            验证字符串与正则表达式是否匹配
+            </summary>
+            <param name="filter">需要过滤的字符串</param>
+            <param name="patten">正则表达式</param>
+            <returns>匹配结果</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.RegexHelper.GetRegexStringList(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            获取与正则表达匹配的字符串列表
+            </summary>
+            <param name="filter">需要过滤的字符串</param>
+            <param name="patten">正则表达式</param>
+            <param name="option">正则表达式选项的枚举值</param>
+            <returns></returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.RegexHelper.GetRegexGroup(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            获取与正则表达匹配的字符串中的分组集合
+            </summary>
+            <param name="filter">需要过滤的字符串</param>
+            <param name="patten">正则表达式</param>
+            <returns>匹配字符串的分组信息</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.RegexHelper.GetRegexGroupItem(System.String,System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            获取与正则表达匹配的字符串中的指定组的值
+            </summary>
+            <param name="filter">需要过滤的字符串</param>
+            <param name="groupName">要获得的组的字符串</param>
+            <param name="patten">正则表达式</param>
+            <returns>匹配字符串的分组信息</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.RegexHelper.ReplaceRegexString(System.String,System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            替换正则表达式为制定字符
+            </summary>
+            <param name="filter">要被替换的字符</param>
+            <param name="patten">正则表达式</param>
+            <param name="replace">替换的字符</param>
+            <returns></returns>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.EncodeConverter">
+            <summary>
+            通用操作功能类
+            </summary>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.UrlEncode(System.String,System.Text.Encoding)">
+            <summary>
+            URL编码
+            </summary>
+            <param name="str">要编码的字符串</param>
+            <param name="str">编码方式</param>
+            <returns>经过编码的字符串</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.UrlEncode(System.String)">
+            <summary>
+            URL编码（GB2312）
+            </summary>
+            <param name="str">要编码的字符串</param>
+            <returns>经过编码的字符串</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.UrlDecode(System.String,System.Text.Encoding)">
+            <summary>
+            URL解码
+            </summary>
+            <param name="str">要解码的字符串</param>
+            <param name="str">编码方式</param>
+            <returns>经过解码的字符串</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.UrlDecode(System.String)">
+            <summary>
+            URL解码（GB2312）
+            </summary>
+            <param name="str">要解码的字符串</param>
+            <returns>经过解码的字符串</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.HtmlDecode(System.String)">
+            <summary>
+            将HTML编码转换为字符串
+            </summary>
+            <param name="str">字符串</param>
+            <returns>HTML编码的字符串</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.HtmlEncode(System.String)">
+            <summary>
+            将字符串转换为HTML编码
+            </summary>
+            <param name="str">HTML编码的字符串</param>
+            <returns>字符串</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.ConvertStringToEnum(System.String,System.Type)">
+            <summary>
+            把字符转换为枚举对象
+            </summary>
+            <param name="str">要转换的字符串</param>
+            <param name="type">要转换的枚举类型</param>
+            <returns>枚举对象</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.ConvertNumberToEnum(System.Int32,System.Type)">
+            <summary>
+            把数值转换为枚举对象
+            </summary>
+            <param name="str">要转换的数值</param>
+            <param name="type">要转换的枚举类型</param>
+            <returns>枚举对象</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.ToHexString(System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            生成16进制字符串
+            </summary>
+            <param name="strTarget">目标字符串</param>
+            <param name="encoding">编码</param>
+            <returns>16进制字符串</returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.FilterBlank(System.String)">
+            <summary>
+            去除空格
+            </summary>
+            <param name="strTarget"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.EncodeConverter.FilterIllegalChar(System.String,System.String)">
+            <summary>
+            过滤非法字符
+            TODO:非法字符过滤，字符传入考虑中。。。
+            </summary>
+            <param name="strTarget"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.MusicLrcInfo">
+            <summary>
+            歌词信息的实体类
+            </summary>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.MusicLrcInfo.#ctor(System.String,System.String,System.String)">
+            <summary>
+            构造方法
+            </summary>
+            <param name="id">文件ID</param>
+            <param name="artist">歌手名</param>
+            <param name="title">歌曲名</param>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicLrcInfo.ID">
+            <summary>
+            文件ID
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicLrcInfo.Artist">
+            <summary>
+            歌手名
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicLrcInfo.Title">
+            <summary>
+            歌曲名称
+            </summary>
+        </member>
+        <member name="P:MusicSearch.MusicCommon.MusicLrcInfo.Lyrics">
+            <summary>
+            歌词
+            </summary>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.ILRCSearch.PageAnalysis(System.String)">
+            <summary>
+            音乐网页采集时
+            根据不同的音乐站点的网站结构
+            构建不同的采集方式
+            主要采集歌词
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.ILRCSearch.CreateAllLrcUrl(MusicSearch.MusicCommon.SearchMusicInfo)">
+            <summary>
+            获取所有歌词信息
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MusicSearch.MusicCommon.ILRCSearch.CreateLrcUrl(MusicSearch.MusicCommon.MusicLrcInfo)">
+            <summary>
+            获取指定歌词信息
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.CommonSymbol">
+            <summary>
+            常用符号
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.CommonSymbol.SYMBOL_COMMA">
+            <summary>
+            逗号
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.CommonSymbol.SYMBOL_DOT">
+            <summary>
+            点号
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.CommonSymbol.SYMBOL_COLON">
+            <summary>
+            冒号
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.CommonSymbol.SYMBOL_SPACE">
+            <summary>
+            空格
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.CommonSymbol.SYMBOL_NEW_LINE">
+            <summary>
+            回车换行
+            </summary>
+        </member>
+        <member name="T:MusicSearch.MusicCommon.RegexExpressionText">
+            <summary>
+            正则表达式文本
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.MUSIC_URL_PATTEN">
+            <summary>
+            获得音乐地址的正则表达式
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.MUSIC_VALID_PATTEN">
+            <summary>
+            验证音乐地址中后缀名是否正确的正则表达式
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.MUSIC_FORMAT_PATTEN">
+            <summary>
+            从音乐地址中获得音乐格式的正则表达式
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.MUSIC_FILENAME_PATTEN">
+            <summary>
+            音乐地址中获得音乐文件名的正则表达式
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.SOSO_DIV_PATTERN">
+            <summary>
+            获得Soso网页中所有歌曲信息的DIV块的正则表达式(已过时)
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.SOSO_TR_PATTREN">
+            <summary>
+            获得Soso网页中所有歌曲信息的TR块的正则表达式
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.SOSO_MUSIC_INFO_PATTEN">
+            <summary>
+            获得Soso网页TR块中歌曲信息的正则表达式
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.BAIDU_TR_PATTERN">
+            <summary>
+             获得Baidu网页中所有歌曲信息的TR块的正则表达式
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.BAIDU_MUSIC_INFO_PATTERN">
+            <summary>
+             获得TR块中每个TD块信息(歌曲地址、歌曲名、歌手名)
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.BAIDU_MUSIC_INFO_PATTERN_2">
+            <summary>
+            获得TR块中每个TD块信息(专辑名)
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.FONT_FRONT_PATTERN">
+            <summary>
+            &lt;font&gt;
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.FONT_END_PATTERN">
+            <summary>
+            &lt;/font&gt;
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.STRONG_FRONT_PATTERN">
+            <summary>
+            &lt;strong&gt;
+            </summary>
+        </member>
+        <member name="F:MusicSearch.MusicCommon.RegexExpressionText.STRONG_END_PATTERN">
+            <summary>
+            &lt;/strong&gt;标签
+            </summary>
+        </member>
+    </members>
+</doc>

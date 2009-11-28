@@ -1,0 +1,12 @@
+E:\program\CSharp\Program\MusicSearch\Common\bin\Debug\Common.dll
+E:\program\CSharp\Program\MusicSearch\Common\bin\Debug\Common.pdb
+E:\program\CSharp\Program\MusicSearch\Common\obj\Debug\ResolveAssemblyReference.cache
+E:\program\CSharp\Program\MusicSearch\Common\obj\Debug\Common.dll
+E:\program\CSharp\Program\MusicSearch\Common\obj\Debug\Common.pdb
+F:\MyProject\MusicSearch\Common\bin\Debug\Common.dll
+F:\MyProject\MusicSearch\Common\bin\Debug\Common.pdb
+F:\MyProject\MusicSearch\Common\obj\Debug\ResolveAssemblyReference.cache
+F:\MyProject\MusicSearch\bin\MusicCommon.dll
+F:\MyProject\MusicSearch\bin\MusicCommon.pdb
+F:\MyProject\MusicSearch\Common\obj\Debug\MusicCommon.dll
+F:\MyProject\MusicSearch\Common\obj\Debug\MusicCommon.pdb
