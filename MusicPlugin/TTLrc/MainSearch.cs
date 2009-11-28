@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+using MusicSearch.ISearch;
 using MusicSearch.MusicCommon;
 using System.Xml;
+using System.Text;
+
 
 /*
  *  eg.
@@ -69,6 +69,15 @@ namespace MusicSearch.TTLrc
                 Console.WriteLine(ex.StackTrace.ToString());
                 return string.Empty;
             }
+        }
+
+        /// <summary>
+        /// 指定当前页面编码方式
+        /// </summary>
+        /// <returns></returns>
+        public Encoding PageEncode()
+        {
+            return Encoding.GetEncoding("GB2312");
         }
         #endregion
 
