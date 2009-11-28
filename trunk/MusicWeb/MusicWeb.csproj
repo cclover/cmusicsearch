@@ -31,14 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MusicCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\MusicCommon.dll</HintPath>
-    </Reference>
-    <Reference Include="MusicRunner, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\MusicRunner.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -74,6 +66,16 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MusicCommon\MusicCommon.csproj">
+      <Project>{722B5BB4-683A-438A-9B5A-620459AAA68B}</Project>
+      <Name>MusicCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MusicRunner\MusicRunner.csproj">
+      <Project>{6109E934-FF54-4065-9CD2-46D17CFDB0A0}</Project>
+      <Name>MusicRunner</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
