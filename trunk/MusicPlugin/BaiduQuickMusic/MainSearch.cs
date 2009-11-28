@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Xml;
-
+using MusicSearch.ISearch;
 using MusicSearch.MusicCommon;
+using System.Text;
 
 
 namespace MusicSearch.BaiduQuickMusic
@@ -16,13 +13,6 @@ namespace MusicSearch.BaiduQuickMusic
     /// </summary>
     public class MainSearch : IMusicSearch
     {
-        #region 构造函数
-        public MainSearch()
-        {
-
-        }
-        #endregion
-
         #region 接口实现
          /// <summary>
         /// 分析百度快速搜索
@@ -73,6 +63,15 @@ namespace MusicSearch.BaiduQuickMusic
             {
                 return string.Empty;
             }
+        }
+
+        /// <summary>
+        /// 指定当前页面编码方式
+        /// </summary>
+        /// <returns></returns>
+        public Encoding PageEncode()
+        {
+            return Encoding.GetEncoding("GB2312");
         }
         #endregion
 

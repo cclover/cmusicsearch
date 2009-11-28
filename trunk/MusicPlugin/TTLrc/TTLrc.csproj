@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{91D6782A-4E9E-45AF-85A5-DF10121F4601}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -53,6 +53,12 @@
     <Compile Include="MainSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TTEncode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ISearch\ISearch.csproj">
+      <Project>{F0740208-8220-4381-AABF-279C86B090EF}</Project>
+      <Name>ISearch</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

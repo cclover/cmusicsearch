@@ -3,39 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-
+using MusicSearch.ISearch;
 using MusicSearch.MusicCommon;
 
 namespace MusicSearch.MusicCrawler
 {
     public class Crawler
     {
-        #region 属性定义
-        /// <summary>
-        /// 请求页面的编码方式
-        /// 默认GB2312编码
-        /// </summary>
-        public Encoding CurrentEncoding {set;get;}
-        #endregion
-
-        #region 构造函数
-        public Crawler()
-        {
-            //默认GB2312编码
-            CurrentEncoding = Encoding.GetEncoding("gb2312");
-        }
-
-        public Crawler(string encode)
-        {
-            CurrentEncoding = Encoding.GetEncoding(encode);
-        }
-
-        public Crawler(Encoding encode)
-        {
-            CurrentEncoding = encode;
-        }
-        #endregion
-
         #region 方法封装(Music)
         /// <summary>
         /// 获取音乐信息列表
@@ -58,7 +32,7 @@ namespace MusicSearch.MusicCrawler
             {
                 // 请求页面
                 NetworkRequest nwr = new NetworkRequest ();
-                PageRequestResults result = nwr.RequestPage(out _pageHTML, objSearch.CreateMusicUrl(info), CurrentEncoding);
+                PageRequestResults result = nwr.RequestPage(out _pageHTML, objSearch.CreateMusicUrl(info), objSearch.PageEncode());
                 if (result == PageRequestResults.Success)
                 {
                     // 如果请求成功，分析页面
@@ -113,7 +87,7 @@ namespace MusicSearch.MusicCrawler
         }
 
         /// <summary>
-        /// 获取音乐歌词基本信息
+        /// 获取音乐歌词列表
         /// </summary>
         /// <param name="reqUrl">请求音乐歌词的地址</param>
         /// <param name="code">页面编码</param>
@@ -154,8 +128,9 @@ namespace MusicSearch.MusicCrawler
             }
             return _lstMusicLrc;
         }
+
         /// <summary>
-        /// 获取音乐歌词
+        /// 获取音乐歌词内容
         /// </summary>
         /// <param name="info">歌词请求地址</param>
         /// <param name="code">页面编码</param>

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-
+using MusicSearch.ISearch;
 using MusicSearch.MusicCommon;
-
+using System.Text;
 
 namespace MusicSearch.BaiduMusic
 {
@@ -57,6 +55,15 @@ namespace MusicSearch.BaiduMusic
             {
                 return string.Empty;
             }
+        }
+
+        /// <summary>
+        /// 指定当前页面编码方式
+        /// </summary>
+        /// <returns></returns>
+        public Encoding PageEncode()
+        {
+            return Encoding.GetEncoding("GB2312");
         }
         #endregion
 

@@ -8,6 +8,7 @@ using System.Configuration;
 
 using MusicSearch.MusicCommon;
 using MusicSearch.MusicCrawler;
+using MusicSearch.ISearch;
 
 
 namespace MusicSearch.MusicRunner
@@ -16,7 +17,7 @@ namespace MusicSearch.MusicRunner
     /// 音乐搜索外部调用
     /// TODO:由于程序启动进行一次反射就可以，在这里每次创建Runner时都会去获取一下DLL
     /// </summary>
-    public class MSLRCRunner:IDisposable
+    public class MSLRCRunner : IDisposable
     {
         /// <summary>
         /// 音乐查找
@@ -77,14 +78,14 @@ namespace MusicSearch.MusicRunner
                 if (fi.Extension.ToLower().Equals(".dll"))
                 {
                     Assembly assembly = Assembly.LoadFile(ItemPath);
-                    object objSearch = assembly.CreateInstance(string.Format("MusicSearch.{0}.MainSearch", fi.Name.Replace(fi.Extension,string.Empty)), false);
+                    object objSearch = assembly.CreateInstance(string.Format("MusicSearch.{0}.MainSearch", fi.Name.Replace(fi.Extension, string.Empty)), false);
                     if (objSearch == null)
                     {
                         continue;
                     }
                     if (objSearch is IMusicSearch)
                     {
-                        musicSearcher.Add(new KeyValuePair<string,IMusicSearch>(Guid.NewGuid().ToString(),(IMusicSearch)objSearch));
+                        musicSearcher.Add(new KeyValuePair<string, IMusicSearch>(Guid.NewGuid().ToString(), (IMusicSearch)objSearch));
                     }
                     else if (objSearch is ILRCSearch)
                     {
@@ -112,7 +113,7 @@ namespace MusicSearch.MusicRunner
             List<MusicLrcInfo> lstMusic = new List<MusicLrcInfo>();
             foreach (var item in lrcSearcher)
             {
-                lstMusic.AddRange(crawler.GetMusicLrcList(info,Encoding.UTF8,item));
+                lstMusic.AddRange(crawler.GetMusicLrcList(info, Encoding.UTF8, item));
             }
             return lstMusic;
         }
@@ -125,7 +126,7 @@ namespace MusicSearch.MusicRunner
                 return string.Empty;
             }
             ILRCSearch objsearch = lrcSearcher[0];
-            return crawler.GetMusicLyric(info,Encoding.UTF8, objsearch);
+            return crawler.GetMusicLyric(info, Encoding.UTF8, objsearch);
         }
         #endregion
 

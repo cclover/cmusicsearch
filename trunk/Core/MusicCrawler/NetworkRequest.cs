@@ -4,7 +4,6 @@ using System.Net;
 using System.Text;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-
 using MusicSearch.MusicCommon;
 
 namespace MusicSearch.MusicCrawler
@@ -12,28 +11,24 @@ namespace MusicSearch.MusicCrawler
     /// <summary>
     /// 网络页面获取
     /// </summary>
-    internal class NetworkRequest
+    public class NetworkRequest
     {
-        #region 构造函数
-        public NetworkRequest()
-        {
-        }
-        #endregion
 
-        #region 页面请求封装(Internal)
         /// <summary>
-        /// 对Web页面进行请求，获取页面流
+        /// 对指定URL页面进行请求，获取页面流
         /// </summary>
         /// <param name="pageHtml">返回的页面HTML字符串</param>
+        /// <param name="reqUrl">请求的页面URL</param>
         /// <param name="encode">请求的页面编码</param>
+        /// <param name="filterReg">页面要过滤的正则表达式</param>
         /// <returns>请求结果</returns>
-        internal PageRequestResults RequestPage(out string pageHtml,string ReqUrl,Encoding encode)
+        public PageRequestResults RequestPage(out string pageHtml, string reqUrl, Encoding encode, string filterReg)
         {
             pageHtml = string.Empty;
-            if (!string.IsNullOrEmpty(ReqUrl))
+            if (!string.IsNullOrEmpty(reqUrl))
             {
                 // 设置请求信息，使用GET方式获得数据
-                HttpWebRequest musicPageReq = (HttpWebRequest)WebRequest.Create(ReqUrl);
+                HttpWebRequest musicPageReq = (HttpWebRequest)WebRequest.Create(reqUrl);
                 musicPageReq.AllowAutoRedirect = false;
                 musicPageReq.Method = "GET";
                 musicPageReq.Timeout = SearchConfig.TIME_OUT;
@@ -50,7 +45,7 @@ namespace MusicSearch.MusicCrawler
 
                             // 读取页面流，获取页面HTML字符串,去除指定的标签
                             StreamReader reader = new StreamReader(pageStrem, encode);
-                            pageHtml = ReplaceHtml(reader.ReadToEnd());
+                            pageHtml = ReplaceHtml(reader.ReadToEnd(), filterReg);
                             return PageRequestResults.Success;
                         }
                         else
@@ -90,19 +85,28 @@ namespace MusicSearch.MusicCrawler
             }
             return PageRequestResults.UrlIsNull;
         }
-        #endregion
+
+        /// <summary>
+        /// 对指定URL页面进行请求，获取页面流，去除文字修饰的标签
+        /// </summary>
+        /// <param name="pageHtml">返回的页面HTML字符串</param>
+        /// <param name="reqUrl">请求的页面URL</param>
+        /// <param name="encode">请求的页面编码</param>
+        /// <returns>请求结果</returns>
+        public PageRequestResults RequestPage(out string pageHtml, string reqUrl, Encoding encode)
+        {
+            return RequestPage(out pageHtml, reqUrl, encode, RegexExpressionText.PAGE_FILTER);
+        }
 
         /// <summary>
         /// 去除网页HTML中指定的标签
         /// </summary>
-        /// <param name="filter">要处理的HTML字符串</param>
+        /// <param name="pageContext">要处理的HTML字符串</param>
+        /// <param name="filterReg">要去除内容的正则表达式</param>
         /// <returns>消除后的字符串</returns>
-        private string ReplaceHtml(string filter)
+        private string ReplaceHtml(string pageContext, string filterReg)
         {
-            string result = RegexHelper.ReplaceRegexString(filter, RegexExpressionText.FONT_FRONT_PATTERN, string.Empty, RegexOptions.IgnoreCase);
-            result = RegexHelper.ReplaceRegexString(result, RegexExpressionText.FONT_END_PATTERN, string.Empty, RegexOptions.IgnoreCase);
-            result = RegexHelper.ReplaceRegexString(result, RegexExpressionText.STRONG_FRONT_PATTERN, string.Empty, RegexOptions.IgnoreCase);
-            result = RegexHelper.ReplaceRegexString(result, RegexExpressionText.STRONG_END_PATTERN, string.Empty, RegexOptions.IgnoreCase);
+            string result = RegexHelper.ReplaceRegexString(pageContext, filterReg, string.Empty, RegexOptions.IgnoreCase);
             return result;
         }
     }
