@@ -28,7 +28,11 @@ namespace MusicSearch.TTLrc
     {
 
         #region ILRCSearch Members
-
+        /// <summary>
+        /// 页面分析
+        /// </summary>
+        /// <param name="PageContent">页面内容</param>
+        /// <returns></returns>
         public List<MusicLrcInfo> PageAnalysis(string PageContent)
         {
             List<MusicLrcInfo> lstLRC = new List<MusicLrcInfo>();
@@ -42,7 +46,11 @@ namespace MusicSearch.TTLrc
             }
             return lstLRC;
         }
-
+        /// <summary>
+        /// 创建所有歌词获取地址
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
         public string CreateAllLrcUrl(SearchMusicInfo info)
         {
             try
@@ -56,7 +64,11 @@ namespace MusicSearch.TTLrc
                 return string.Empty;
             }
         }
-
+        /// <summary>
+        /// 创建歌词的获取地址
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
         public string CreateLrcUrl(MusicLrcInfo info)
         {
             try
@@ -89,6 +101,7 @@ namespace MusicSearch.TTLrc
         private List<MusicLrcInfo> LRCInfoBuild(string tr)
         {
             List<MusicLrcInfo> LRCInfoList = new List<MusicLrcInfo>();
+            //如果有错误信息直接返回空信息
             if (tr.Contains("error"))
             {
                 return LRCInfoList;
@@ -97,13 +110,16 @@ namespace MusicSearch.TTLrc
             {
                 XmlDocument x = new XmlDocument();
                 x.LoadXml(tr);
-
+                //获取歌词信息节点
                 XmlNodeList list = x.SelectNodes("/result/lrc");
 
                 foreach (XmlNode xnl in list)
                 {
+                    //取得ID
                     string sLrcId = xnl.Attributes["id"].Value;
+                    //取得艺术家
                     string artist = xnl.Attributes["artist"].Value;
+                    //取得名称
                     string title = xnl.Attributes["title"].Value;
                     LRCInfoList.Add(new MusicLrcInfo(sLrcId, artist, title));
                 }
