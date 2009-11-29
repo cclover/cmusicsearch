@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using MusicSearch.ISearch;
-using MusicSearch.MusicCommon;
 using System.Xml;
 using System.Text;
+
+using MusicSearch.ISearch;
+using MusicSearch.MusicCommon;
 
 
 /*
@@ -26,13 +27,12 @@ namespace MusicSearch.TTLrc
 {
     public class MainSearch:ILRCSearch
     {
-
         #region ILRCSearch Members
         /// <summary>
         /// 页面分析
         /// </summary>
         /// <param name="PageContent">页面内容</param>
-        /// <returns></returns>
+        /// <returns>获取所有的歌词信息</returns>
         public List<MusicLrcInfo> PageAnalysis(string PageContent)
         {
             List<MusicLrcInfo> lstLRC = new List<MusicLrcInfo>();
@@ -49,12 +49,13 @@ namespace MusicSearch.TTLrc
         /// <summary>
         /// 创建所有歌词获取地址
         /// </summary>
-        /// <param name="info"></param>
+        /// <param name="info">歌词搜索信息</param>
         /// <returns></returns>
         public string CreateAllLrcUrl(SearchMusicInfo info)
         {
             try
             {
+                //千千静听歌词搜索列表地址
                 string TTLrcUrl = "http://ttlrcct.qianqian.com/dll/lyricsvr.dll?sh?Artist={0}&Title={1}";
                 return string.Format(TTLrcUrl, new object[] { EncodeConverter.ToHexString(info.SingerName), EncodeConverter.ToHexString(info.MusicName) });
             }
@@ -67,12 +68,13 @@ namespace MusicSearch.TTLrc
         /// <summary>
         /// 创建歌词的获取地址
         /// </summary>
-        /// <param name="info"></param>
+        /// <param name="info">歌词搜索信息</param>
         /// <returns></returns>
         public string CreateLrcUrl(MusicLrcInfo info)
         {
             try
             {
+                //千千静听歌词获取地址
                 string TTLrcUrl = "http://ttlrcct2.qianqian.com/dll/lyricsvr.dll?dl?Id={0}&Code={1}&uid=03&mac=002421585787&hds=WD-WMAV22344505";
                 return string.Format(TTLrcUrl, new object[] { info.ID, TTEncode.CreateQianQianCode(info.Artist, info.Title, int.Parse(info.ID)) });
             }
@@ -89,11 +91,12 @@ namespace MusicSearch.TTLrc
         /// <returns></returns>
         public Encoding PageEncode()
         {
-            return Encoding.GetEncoding("GB2312");
+            //return Encoding.GetEncoding("GB2312");
+            return Encoding.UTF8;
         }
         #endregion
 
-         /// <summary>
+        /// <summary>
         /// 分析返回的XML的歌词信息
         /// </summary>
         /// <param name="tr">获取TT静听服务器的返回的XML</param>
