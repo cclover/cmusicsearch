@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-using MusicSearch.MusicCommon;
-using MusicSearch.MusicRunner;
+using CMusicSearch.MusicCommon;
+using CMusicSearch.MusicRunner;
 
-namespace MusicWeb
+namespace CMusicSearch.MusicWeb
 {
     public partial class _Default : System.Web.UI.Page
     {

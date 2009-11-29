@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ISearch
+namespace CMusicSearch.ISearch
 {
     /// <summary>
     /// 编码接口

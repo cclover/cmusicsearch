@@ -1,4 +1,4 @@
-﻿namespace Test
+﻿namespace CMusicSearch.Test
 {
     partial class MainForm
     {

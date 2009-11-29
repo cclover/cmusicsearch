@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using MusicSearch.ISearch;
-using MusicSearch.MusicCommon;
 using System.Text;
 
+using CMusicSearch.ISearch;
+using CMusicSearch.MusicCommon;
 
-namespace MusicSearch.BaiduQuickMusic
+namespace CMusicSearch.BaiduQuickMusic
 {
     /// <summary>
     /// 利用百度快速搜索

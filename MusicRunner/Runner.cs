@@ -6,12 +6,12 @@ using System.IO;
 using System.Reflection;
 using System.Configuration;
 
-using MusicSearch.MusicCommon;
-using MusicSearch.MusicCrawler;
-using MusicSearch.ISearch;
+using CMusicSearch.MusicCommon;
+using CMusicSearch.MusicCrawler;
+using CMusicSearch.ISearch;
 
 
-namespace MusicSearch.MusicRunner
+namespace CMusicSearch.MusicRunner
 {
     /// <summary>
     /// 音乐搜索外部调用

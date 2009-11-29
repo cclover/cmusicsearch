@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using MusicSearch.MusicCommon;
+using CMusicSearch.MusicCommon;
 
-namespace MusicSearch.TTLrc
+namespace CMusicSearch.TTLrc
 {
     class TTEncode
     {

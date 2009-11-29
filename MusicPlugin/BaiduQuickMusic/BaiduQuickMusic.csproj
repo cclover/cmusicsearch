@@ -8,7 +8,7 @@
     <ProjectGuid>{EA29CDC0-CC4B-4B33-A723-384539B33C77}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MusicSearch.BaiduQuickMusic</RootNamespace>
+    <RootNamespace>CMusicSearch.BaiduQuickMusic</RootNamespace>
     <AssemblyName>BaiduQuickMusic</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

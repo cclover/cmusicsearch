@@ -6,13 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
-using MusicSearch.MusicCommon;
 using System.Threading;
-using MusicSearch.MusicRunner;
+
+using CMusicSearch.MusicCommon;
+using CMusicSearch.MusicRunner;
 
 
-namespace Test
+namespace CMusicSearch.Test
 {
     public partial class MainForm : Form
     {

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using MusicSearch.ISearch;
-using MusicSearch.MusicCommon;
 using System.Text;
 
-namespace MusicSearch.BaiduMusic
+using CMusicSearch.ISearch;
+using CMusicSearch.MusicCommon;
+
+namespace CMusicSearch.BaiduMusic
 {
     public class MainSearch : IMusicSearch
     {

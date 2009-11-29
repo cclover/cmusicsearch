@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace MusicSearch.MusicCommon
+namespace CMusicSearch.MusicCommon
 {
     /// <summary>
     /// 音乐搜索信息的实体类

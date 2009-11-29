@@ -4,9 +4,10 @@ using System.Net;
 using System.Text;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using MusicSearch.MusicCommon;
 
-namespace MusicSearch.MusicCrawler
+using CMusicSearch.MusicCommon;
+
+namespace CMusicSearch.MusicCrawler
 {
     /// <summary>
     /// 网络页面获取

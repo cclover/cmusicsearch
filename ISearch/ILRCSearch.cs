@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using MusicSearch.MusicCommon;
-using ISearch;
+using CMusicSearch.MusicCommon;
 
-namespace MusicSearch.ISearch
+namespace CMusicSearch.ISearch
 {
     /// <summary>
     /// 获取歌词信息时要实现的接口

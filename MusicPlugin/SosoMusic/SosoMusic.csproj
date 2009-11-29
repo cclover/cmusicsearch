@@ -8,7 +8,7 @@
     <ProjectGuid>{83A990D0-9DED-40A4-9CE9-C79C26A90E60}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MusicSearch.SosoMusic</RootNamespace>
+    <RootNamespace>CMusicSearch.SosoMusic</RootNamespace>
     <AssemblyName>SosoMusic</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

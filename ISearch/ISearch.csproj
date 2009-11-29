@@ -8,7 +8,7 @@
     <ProjectGuid>{F0740208-8220-4381-AABF-279C86B090EF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ISearch</RootNamespace>
+    <RootNamespace>CMusicSearch.ISearch</RootNamespace>
     <AssemblyName>ISearch</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

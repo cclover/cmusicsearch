@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 
 
-namespace MusicSearch.MusicCommon
+namespace CMusicSearch.MusicCommon
 {
     /// <summary>
     /// 正则表达式操作类

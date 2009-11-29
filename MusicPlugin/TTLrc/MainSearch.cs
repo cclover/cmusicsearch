@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Text;
 
-using MusicSearch.ISearch;
-using MusicSearch.MusicCommon;
+using CMusicSearch.ISearch;
+using CMusicSearch.MusicCommon;
 
 
 /*
@@ -23,7 +23,7 @@ using MusicSearch.MusicCommon;
  *  //</result>
  */
 
-namespace MusicSearch.TTLrc
+namespace CMusicSearch.TTLrc
 {
     public class MainSearch:ILRCSearch
     {

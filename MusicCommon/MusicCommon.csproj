@@ -8,7 +8,7 @@
     <ProjectGuid>{722B5BB4-683A-438A-9B5A-620459AAA68B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MusicSearch.MusicCommon</RootNamespace>
+    <RootNamespace>CMusicSearch.MusicCommon</RootNamespace>
     <AssemblyName>MusicCommon</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

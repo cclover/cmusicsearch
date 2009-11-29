@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using MusicSearch.ISearch;
-using MusicSearch.MusicCommon;
 using System.Text;
 
+using CMusicSearch.ISearch;
+using CMusicSearch.MusicCommon;
 
-namespace MusicSearch.SosoMusic
+namespace CMusicSearch.SosoMusic
 {
     public class MainSearch : IMusicSearch
     {
