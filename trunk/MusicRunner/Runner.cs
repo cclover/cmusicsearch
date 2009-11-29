@@ -84,7 +84,7 @@ namespace CMusicSearch.MusicRunner
                 {
                     Assembly assembly = Assembly.LoadFile(ItemPath);
                     //动态实例化类库
-                    object objSearch = assembly.CreateInstance(string.Format("MusicSearch.{0}.MainSearch", fi.Name.Replace(fi.Extension, string.Empty)), false);
+                    object objSearch = assembly.CreateInstance(string.Format("CMusicSearch.{0}.MainSearch", fi.Name.Replace(fi.Extension, string.Empty)), false);
                     if (objSearch == null)
                     {
                         continue;
