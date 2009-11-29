@@ -5,13 +5,14 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
+using CMusicSearch.MusicCommon;
+
 namespace CMusicSearch.MusicService
 {
-    // NOTE: If you change the interface name "ISearchMusicService" here, you must also update the reference to "ISearchMusicService" in Web.config.
     [ServiceContract]
     public interface ISearchMusicService
     {
         [OperationContract]
-        void DoWork();
+        List<MusicInfo> SearchM();
     }
 }
