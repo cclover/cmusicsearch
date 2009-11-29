@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using MusicSearch.ISearch;
-using MusicSearch.MusicCommon;
+using CMusicSearch.ISearch;
+using CMusicSearch.MusicCommon;
 
-namespace MusicSearch.MusicCrawler
+namespace CMusicSearch.MusicCrawler
 {
     public class Crawler
     {

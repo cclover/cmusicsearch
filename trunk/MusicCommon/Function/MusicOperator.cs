@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 
 
-namespace MusicSearch.MusicCommon
+namespace CMusicSearch.MusicCommon
 {
     //MusicOperator
     /// <summary>

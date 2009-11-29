@@ -8,7 +8,7 @@
     <ProjectGuid>{91D6782A-4E9E-45AF-85A5-DF10121F4601}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MusicSearch.TTLrc</RootNamespace>
+    <RootNamespace>CMusicSearch.TTLrc</RootNamespace>
     <AssemblyName>TTLrc</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

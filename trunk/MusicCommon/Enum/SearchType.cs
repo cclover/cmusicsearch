@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MusicSearch.MusicCommon
+namespace CMusicSearch.MusicCommon
 {
     /// <summary>
     /// 搜索类型

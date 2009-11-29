@@ -8,7 +8,7 @@
     <ProjectGuid>{D662410C-68DE-4F7C-A024-2229A8BB2AEC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MusicSearch.MusicCrawler</RootNamespace>
+    <RootNamespace>CMusicSearch.MusicCrawler</RootNamespace>
     <AssemblyName>MusicCrawler</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

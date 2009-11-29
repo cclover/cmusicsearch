@@ -2,7 +2,7 @@
 using System.Text;
 using System.Web;
 
-namespace MusicSearch.MusicCommon
+namespace CMusicSearch.MusicCommon
 {
     /// <summary>
     /// 通用操作功能类

@@ -1,5 +1,5 @@
 ﻿
-namespace MusicSearch.MusicCommon
+namespace CMusicSearch.MusicCommon
 {
     /// <summary>
     /// 搜索配置信息

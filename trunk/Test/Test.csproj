@@ -8,7 +8,7 @@
     <ProjectGuid>{DB6DE06A-4171-4FEA-BAC3-087E4C2DB15C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Test</RootNamespace>
+    <RootNamespace>CMusicSearch.Test</RootNamespace>
     <AssemblyName>Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
