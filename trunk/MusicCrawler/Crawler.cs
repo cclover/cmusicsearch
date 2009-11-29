@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using MusicSearch.ISearch;
 using MusicSearch.MusicCommon;
 
@@ -92,7 +93,7 @@ namespace MusicSearch.MusicCrawler
         /// <param name="reqUrl">请求音乐歌词的地址</param>
         /// <param name="code">页面编码</param>
         /// <returns>返回的歌词列表</returns>
-        public List<MusicLrcInfo> GetMusicLrcList(SearchMusicInfo info, Encoding code, ILRCSearch objSearch)
+        public List<MusicLrcInfo> GetMusicLrcList(SearchMusicInfo info, ILRCSearch objSearch)
         {
             List<MusicLrcInfo> _lstMusicLrc = new List<MusicLrcInfo>();
 
@@ -105,7 +106,7 @@ namespace MusicSearch.MusicCrawler
             {
                 // 请求页面
                 NetworkRequest nwr = new NetworkRequest();
-                PageRequestResults result = nwr.RequestPage(out _pageHTML, objSearch.CreateAllLrcUrl(info), code);
+                PageRequestResults result = nwr.RequestPage(out _pageHTML, objSearch.CreateAllLrcUrl(info), objSearch.PageEncode());
                 if (result == PageRequestResults.Success)
                 {
                     // 如果请求成功，分析页面
@@ -132,11 +133,10 @@ namespace MusicSearch.MusicCrawler
         /// <summary>
         /// 获取音乐歌词内容
         /// </summary>
-        /// <param name="info">歌词请求地址</param>
-        /// <param name="code">页面编码</param>
+        /// <param name="info">歌词信息的实体类</param>
         /// <param name="objSearch">外部对象</param>
         /// <returns>歌词字符串</returns>
-        public string GetMusicLyric(MusicLrcInfo info, Encoding code, ILRCSearch objSearch)
+        public string GetMusicLyric(MusicLrcInfo info, ILRCSearch objSearch)
         {
             string _pageHTML;
             int TryTime = 1;
@@ -147,7 +147,7 @@ namespace MusicSearch.MusicCrawler
             {
                 // 请求页面，默认芊芊静听直接返回请求的字符串
                 NetworkRequest nwr = new NetworkRequest();
-                PageRequestResults result = nwr.RequestPage(out _pageHTML, objSearch.CreateLrcUrl(info), code);
+                PageRequestResults result = nwr.RequestPage(out _pageHTML, objSearch.CreateLrcUrl(info),objSearch.PageEncode());
                 if (result == PageRequestResults.Success)
                 {
                     return _pageHTML;
@@ -167,16 +167,6 @@ namespace MusicSearch.MusicCrawler
                 }
             }
             return string.Empty;
-        }
-
-        /// <summary>
-        /// 获取音乐歌词(GB2312)
-        /// </summary>
-        /// <param name="reqUrl">歌词请求地址</param>
-        /// <returns>歌词字符串</returns>
-        public string GetMusicLyric(MusicLrcInfo info,ILRCSearch objSearch)
-        {
-            return GetMusicLyric(info, Encoding.Unicode, objSearch);
         }
         #endregion
     }
