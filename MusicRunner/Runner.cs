@@ -66,27 +66,35 @@ namespace MusicSearch.MusicRunner
         #endregion
 
         #region 方法封装
+        /// <summary>
+        /// Runner初始化
+        /// 功能：插件加载
+        /// </summary>
         public void Initialize()
         {
             musicSearcher.Clear();
             lrcSearcher.Clear();
-
+            //获取“Plugin”目录下的文件
             string[] filepaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/Plugin/");
             foreach (string ItemPath in filepaths)
             {
                 FileInfo fi = new FileInfo(ItemPath);
+                //找出后缀为DLL的文件，并实例化它
                 if (fi.Extension.ToLower().Equals(".dll"))
                 {
                     Assembly assembly = Assembly.LoadFile(ItemPath);
+                    //动态实例化类库
                     object objSearch = assembly.CreateInstance(string.Format("MusicSearch.{0}.MainSearch", fi.Name.Replace(fi.Extension, string.Empty)), false);
                     if (objSearch == null)
                     {
                         continue;
                     }
+                    //加载音乐搜索插件
                     if (objSearch is IMusicSearch)
                     {
                         musicSearcher.Add(new KeyValuePair<string, IMusicSearch>(Guid.NewGuid().ToString(), (IMusicSearch)objSearch));
                     }
+                    //加载歌词搜索插件
                     else if (objSearch is ILRCSearch)
                     {
                         //lrcSearcher.Add(new KeyValuePair<string,ILRCSearch>(Guid.NewGuid().ToString(),(ILRCSearch)objSearch));
@@ -96,27 +104,44 @@ namespace MusicSearch.MusicRunner
             }
         }
 
+        /// <summary>
+        /// 搜索歌曲方法
+        /// </summary>
+        /// <param name="info">搜索信息</param>
+        /// <returns>歌曲列表</returns>
         public List<MusicInfo> SearchM(SearchMusicInfo info)
         {
             Crawler crawler = new Crawler();
             List<MusicInfo> lstMusic = new List<MusicInfo>();
             foreach (var item in musicSearcher)
             {
+                //根据加载的插件所提供的方法，获取音乐信息
                 lstMusic.AddRange(crawler.GetMusicList(info, item.Value));
             }
             return lstMusic;
         }
 
+        /// <summary>
+        /// 搜索歌词列表方法
+        /// </summary>
+        /// <param name="info">搜索信息</param>
+        /// <returns>歌词列表</returns>
         public List<MusicLrcInfo> SearchL(SearchMusicInfo info)
         {
             Crawler crawler = new Crawler();
             List<MusicLrcInfo> lstMusic = new List<MusicLrcInfo>();
             foreach (var item in lrcSearcher)
             {
-                lstMusic.AddRange(crawler.GetMusicLrcList(info, Encoding.UTF8, item));
+                //根据加载的插件所提供的方法，获取歌词信息
+                lstMusic.AddRange(crawler.GetMusicLrcList(info, item));
             }
             return lstMusic;
         }
+        /// <summary>
+        /// 获取歌词方法
+        /// </summary>
+        /// <param name="info">歌词基本信息</param>
+        /// <returns>歌词内容</returns>
         public string GetLyricContent(MusicLrcInfo info)
         {
             Crawler crawler = new Crawler();
@@ -125,8 +150,9 @@ namespace MusicSearch.MusicRunner
             {
                 return string.Empty;
             }
+            //TODO:
             ILRCSearch objsearch = lrcSearcher[0];
-            return crawler.GetMusicLyric(info, Encoding.UTF8, objsearch);
+            return crawler.GetMusicLyric(info, objsearch);
         }
         #endregion
 
