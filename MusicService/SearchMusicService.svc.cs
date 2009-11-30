@@ -10,8 +10,13 @@ namespace CMusicSearch.MusicService
     // NOTE: If you change the class name "SearchMusicService" here, you must also update the reference to "SearchMusicService" in Web.config.
     public class SearchMusicService : ISearchMusicService
     {
-        public void DoWork()
+        #region ISearchMusicService Members
+
+        public List<CMusicSearch.MusicCommon.MusicInfo> SearchM()
         {
+            throw new NotImplementedException();
         }
+
+        #endregion
     }
 }
