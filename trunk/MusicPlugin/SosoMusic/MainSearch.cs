@@ -10,6 +10,24 @@ namespace CMusicSearch.SosoMusic
 {
     public class MainSearch : IMusicSearch
     {
+        #region 常量定义
+        /// <summary>
+        /// 获得Soso网页中所有歌曲信息的DIV块的正则表达式(已过时)
+        /// </summary>
+        private readonly string SOSO_DIV_PATTERN = "<div id=\"meta_info_.*?</div>";
+
+        /// <summary>
+        /// 获得Soso网页中所有歌曲信息的TR块的正则表达式
+        /// </summary>
+        private readonly string SOSO_TR_PATTREN = "<tr\\s+onmouseover=.*?</tr>";
+
+        /// <summary>
+        /// 获得Soso网页TR块中歌曲信息的正则表达式
+        /// </summary>
+        private readonly string SOSO_MUSIC_INFO_PATTEN = "<td class=\"song\"><a.*?>(?<MusicName>.*?)\\s*</a>.*?</td>.*?<td class=\"singer\"><a.*?>(?<SingerName>.*?)\\s*</a>.*?</td>.*?<td class=\"ablum\">(<a.*?>(?<Album>.*?)\\s*</a>)?.*?</td>";
+
+        #endregion
+
         #region 构造函数
         public MainSearch()
         {
@@ -27,7 +45,7 @@ namespace CMusicSearch.SosoMusic
             try
             {
                 // 获取所有歌曲的DIV块信息，此块包含了MusicInfo信息
-                List<string> musicDIV = RegexHelper.GetRegexStringList(PageContent, RegexExpressionText.SOSO_TR_PATTREN, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                List<string> musicDIV = RegexHelper.GetRegexStringList(PageContent, SOSO_TR_PATTREN, RegexOptions.IgnoreCase | RegexOptions.Singleline);
                 if (musicDIV != null)
                 {
                     foreach (string div in musicDIV)
@@ -92,7 +110,7 @@ namespace CMusicSearch.SosoMusic
                 }
 
                 // 如果获得地址成功,获得歌曲信息
-                GroupCollection group = RegexHelper.GetRegexGroup(tr, RegexExpressionText.SOSO_MUSIC_INFO_PATTEN, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                GroupCollection group = RegexHelper.GetRegexGroup(tr, SOSO_MUSIC_INFO_PATTEN, RegexOptions.IgnoreCase | RegexOptions.Singleline);
                 if (group != null)
                 {
                     // 新建歌曲信息列表，设置歌曲信息
