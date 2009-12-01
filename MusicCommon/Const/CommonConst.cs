@@ -59,36 +59,6 @@ namespace CMusicSearch.MusicCommon
         public static readonly string MUSIC_FILENAME_PATTEN = @"//.+/(?<FileName>.*)\.(mp3|rm|wma|flash|wav|mid|ape|ogg|flv){1}$";
 
         /// <summary>
-        /// 获得Soso网页中所有歌曲信息的DIV块的正则表达式(已过时)
-        /// </summary>
-        public static readonly string SOSO_DIV_PATTERN = "<div id=\"meta_info_.*?</div>";
-
-        /// <summary>
-        /// 获得Soso网页中所有歌曲信息的TR块的正则表达式
-        /// </summary>
-        public static readonly string SOSO_TR_PATTREN = "<tr\\s+onmouseover=.*?</tr>";
-
-        /// <summary>
-        /// 获得Soso网页TR块中歌曲信息的正则表达式
-        /// </summary>
-        public static readonly string SOSO_MUSIC_INFO_PATTEN = "<td class=\"song\"><a.*?>(?<MusicName>.*?)\\s*</a>.*?</td>.*?<td class=\"singer\"><a.*?>(?<SingerName>.*?)\\s*</a>.*?</td>.*?<td class=\"ablum\">(<a.*?>(?<Album>.*?)\\s*</a>)?.*?</td>";
-
-        /// <summary>
-        ///  获得Baidu网页中所有歌曲信息的TR块的正则表达式
-        /// </summary>
-        public static readonly string BAIDU_TR_PATTERN = @"<tr>\s*<td class=tdn>.*?</tr>";
-
-        /// <summary>
-        ///  获得TR块中每个TD块信息(歌曲地址、歌曲名、歌手名)
-        /// </summary>
-        public static readonly string BAIDU_MUSIC_INFO_PATTERN = "<td class=tdn>.*?</td><td class=d><a href=\"(?<LinkUrl>.*?)\"\\s+target=.*?>(?<MusicName>.*?)\\s*</a></td><td>(<a.*?>(?<Singer1>.*?)</a>.*?)?(<a.*?>(?<Singer2>.*?)</a>.*?)?(<a.*?>(?<Singer3>.*?)</a>.*?)?(<a.*?>.*?</a>.*?).*?</td>";
-
-        /// <summary>
-        /// 获得TR块中每个TD块信息(专辑名)
-        /// </summary>
-        public static readonly string BAIDU_MUSIC_INFO_PATTERN_2 = "<td class=al>(<a.*?>(?<Album>.*?)</a>)?.*?</td>";
-
-        /// <summary>
         /// 要过滤的页面内容
         /// </summary>
         public static readonly string PAGE_FILTER = "<font.*?>|</font>|<strong.*?>|</strong>";

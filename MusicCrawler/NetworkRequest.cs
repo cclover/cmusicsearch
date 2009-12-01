@@ -32,7 +32,17 @@ namespace CMusicSearch.MusicCrawler
                 HttpWebRequest musicPageReq = (HttpWebRequest)WebRequest.Create(reqUrl);
                 musicPageReq.AllowAutoRedirect = false;
                 musicPageReq.Method = "GET";
+                //设置超时时间
                 musicPageReq.Timeout = SearchConfig.TIME_OUT;
+                //获取代理
+                IWebProxy proxy = SearchConfig.GetConfiguredWebProxy();
+                //判断代理是否有效
+                if (proxy != null)
+                {
+                    //代理有效时设置代理
+                    musicPageReq.Proxy = proxy;
+                }
+               
                 try
                 {
                     // 获取页面响应
