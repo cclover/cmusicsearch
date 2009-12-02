@@ -114,7 +114,7 @@ namespace CMusicSearch.SosoMusic
             if (musicAddressList != null && musicAddressList.Count > 0)
             {
                 // 过滤掉重复地址，如果过滤后为空，则返回null
-                var urlList = (from list in musicAddressList select list).Distinct();
+                var urlList = musicAddressList;
                 if (urlList.Count() == 0)
                 {
                     return null;
