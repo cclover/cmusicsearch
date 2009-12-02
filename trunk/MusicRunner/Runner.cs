@@ -28,43 +28,6 @@ namespace CMusicSearch.MusicRunner
         /// </summary>
         private List<ILRCSearch> lrcSearcher = new List<ILRCSearch>();
 
-        #region 作成请求字符串
-        ///// <summary>
-        ///// 生成千千静听歌词信息的请求地址
-        ///// </summary>
-        ///// <param name="info">搜索信息</param>
-        ///// <returns>请求地址</returns>
-        //private string CreateTTLrcListUrl(SearchMusicInfo info)
-        //{
-        //    try
-        //    {
-        //        string ttLrcListUrl = ConfigurationManager.AppSettings["TTLrcListUrl"];
-        //        return string.Format(ttLrcListUrl, info.SingerName, info.MusicName);
-        //    }
-        //    catch
-        //    {
-        //        return string.Empty;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 生成千千静听歌词的请求地址
-        ///// </summary>
-        ///// <returns>请求地址</returns>
-        //private string CreateTTLrcUrl(SearchMusicInfo info)
-        //{
-        //    try
-        //    {
-        //        string ttLrcUrl = ConfigurationManager.AppSettings["TTLrcUrl"];
-        //        return string.Format(ttLrcUrl, info.MusicLrcID);
-        //    }
-        //    catch
-        //    {
-        //        return string.Empty;
-        //    }
-        //}
-        #endregion
-
         #region 方法封装
         /// <summary>
         /// Runner初始化
@@ -118,6 +81,8 @@ namespace CMusicSearch.MusicRunner
                 //根据加载的插件所提供的方法，获取音乐信息
                 lstMusic.AddRange(crawler.GetMusicList(info, item.Value));
             }
+            MusicDistinctHelper.Distinct(ref lstMusic);
+            //TODO:在各自的插件中过滤MusicFormat后，在这里是否最终输出也过滤一次
             return lstMusic;
         }
 

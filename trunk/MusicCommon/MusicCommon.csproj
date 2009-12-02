@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CMusicSearch.MusicCommon</RootNamespace>
     <AssemblyName>MusicCommon</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkSubset>
     </TargetFrameworkSubset>
@@ -36,6 +36,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -47,6 +50,7 @@
     <Compile Include="Function\EncodeConverter.cs" />
     <Compile Include="Const\CommonConst.cs" />
     <Compile Include="Enum\MusicFormats.cs" />
+    <Compile Include="Function\MusicDistinctHelper.cs" />
     <Compile Include="Function\MusicOperator.cs" />
     <Compile Include="Enum\PageRequestResults.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

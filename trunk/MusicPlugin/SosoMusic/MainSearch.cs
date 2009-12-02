@@ -61,6 +61,7 @@ namespace CMusicSearch.SosoMusic
             }
             return lstMusic;
         }
+
         /// <summary>
         /// 创建音乐获取URL
         /// </summary>
@@ -70,8 +71,18 @@ namespace CMusicSearch.SosoMusic
         {
             try
             {
+                int ntype = 0;//ALL
+                switch (info.MusicFormat)
+                {
+                    case SearchMusicFormat.MP3:
+                        ntype = 1;
+                        break;
+                    case SearchMusicFormat.WMA:
+                        ntype = 2;
+                        break;
+                }
                 string sosoUrl = "http://cgi.music.soso.com/fcgi-bin/m.q?w={0}&p=1&t={1}";
-                return string.Format(sosoUrl, new object[] { info.MusicName + CommonSymbol.SYMBOL_SPACE + info.SingerName, info.MusicFormat.ToString("D") });
+                return string.Format(sosoUrl, new object[] { info.MusicName + CommonSymbol.SYMBOL_SPACE + info.SingerName, ntype.ToString() });
             }
             catch
             {

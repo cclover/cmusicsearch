@@ -16,9 +16,9 @@ namespace CMusicSearch.MusicCommon
         {
             MusicName = string.Empty;
             SingerName = string.Empty;
-            MusicLrcID = string.Empty;
+            //MusicLrcID = string.Empty;
             MusicFormat = SearchMusicFormat.ALL;
-            Type = SearchType.MusicName;
+            //Type = SearchType.MusicName;
         }
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace CMusicSearch.MusicCommon
         /// <summary>
         /// 要搜索的歌词ID
         /// </summary>
-        public string MusicLrcID
-        { get; set; }
+        //public string MusicLrcID
+        //{ get; set; }
 
         /// <summary>
         /// 搜索的音乐格式
@@ -48,8 +48,8 @@ namespace CMusicSearch.MusicCommon
         /// <summary>
         /// 搜索的类型
         /// </summary>
-        public SearchType Type
-        { get; set; }
+        //public SearchType Type
+        //{ get; set; }
 
     }
 }
