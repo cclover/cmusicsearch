@@ -29,14 +29,7 @@ namespace CMusicSearch.MusicCommon
             get
             {
                 bool useproxy = false;
-                try
-                {
-                    useproxy = bool.Parse(ConfigurationManager.AppSettings["UseProxy"].ToString());
-                }
-                catch
-                {
-                    return useproxy;
-                }
+                bool.TryParse(CommonOperator.ReadWinFormConfig("UseProxy"), out useproxy);
                 return useproxy;
             }
         }
@@ -48,16 +41,7 @@ namespace CMusicSearch.MusicCommon
         {
             get
             {
-                string proxyserver = string.Empty;
-                try
-                {
-                    proxyserver = ConfigurationManager.AppSettings["ProxyServer"].ToString();
-                }
-                catch
-                {
-                    return proxyserver;
-                }
-                return proxyserver;
+                return CommonOperator.ReadWinFormConfig("ProxyServer");
             }
         }
 
@@ -68,16 +52,7 @@ namespace CMusicSearch.MusicCommon
         {
             get
             {
-                string proxyport = string.Empty;
-                try
-                {
-                    proxyport = ConfigurationManager.AppSettings["ProxyPort"].ToString();
-                }
-                catch
-                {
-                    return proxyport;
-                }
-                return proxyport;
+                return CommonOperator.ReadWinFormConfig("ProxyPort");
             }
         }
 
@@ -89,16 +64,7 @@ namespace CMusicSearch.MusicCommon
         {
             get
             {
-                string proxyusername = string.Empty;
-                try
-                {
-                    proxyusername = ConfigurationManager.AppSettings["ProxyUsername"].ToString();
-                }
-                catch
-                {
-                    return proxyusername;
-                }
-                return proxyusername;
+                return CommonOperator.ReadWinFormConfig("ProxyUsername");
             }
         }
 
@@ -109,16 +75,7 @@ namespace CMusicSearch.MusicCommon
         {
             get
             {
-                string proxypassword = string.Empty;
-                try
-                {
-                    proxypassword = ConfigurationManager.AppSettings["ProxyPassword"].ToString();
-                }
-                catch
-                {
-                    return proxypassword;
-                }
-                return proxypassword;
+                return CommonOperator.ReadWinFormConfig("ProxyPassword");
             }
         }
 
@@ -131,9 +88,17 @@ namespace CMusicSearch.MusicCommon
             WebProxy proxy = null;
             if (SearchConfig.UseProxy)
             {
+                int port = -1;
+                string host = SearchConfig.ProxyServer;
+                int.TryParse( SearchConfig.ProxyPort,out port);
+
+                if(string.IsNullOrEmpty(host) || port==-1)
+                {
+                    return null;
+                }
                 try
                 {
-                    proxy = new WebProxy(SearchConfig.ProxyServer, int.Parse(SearchConfig.ProxyPort));
+                    proxy = new WebProxy(host,port);
                     proxy.Credentials = new NetworkCredential(SearchConfig.ProxyUsername, SearchConfig.ProxyPassword);
                 }
                 catch (UriFormatException ex)
