@@ -13,9 +13,17 @@ namespace CMusicSearch.Test
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            if (!CMusicSearch.MusicRunner.MSLRCRunner.Initialize())
+            {
+                MessageBox.Show("没有音乐插件!");
+                Application.Exit();
+            }
+            else
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainForm());
+            }
         }
     }
 }
