@@ -15,10 +15,8 @@ namespace CMusicSearch.MusicCrawler
         /// <summary>
         /// 获取音乐信息列表
         /// </summary>
-        /// <param name="reqUrl">请求页面地址</param>
-        /// <param name="timeOut">请求超时时间</param>
-        /// <param name="tryTime">失败重试次数</param>
-        /// <param name="code">页面编码</param>
+        /// <param name="info">歌曲信息的实体类</param>
+        /// <param name="objSearch">外部对象</param>
         /// <returns>音乐列表</returns>
         public List<MusicInfo> GetMusicList(SearchMusicInfo info,IMusicSearch objSearch)
         {
@@ -90,8 +88,8 @@ namespace CMusicSearch.MusicCrawler
         /// <summary>
         /// 获取音乐歌词列表
         /// </summary>
-        /// <param name="reqUrl">请求音乐歌词的地址</param>
-        /// <param name="code">页面编码</param>
+        /// <param name="info">歌词信息的实体类</param>
+        /// <param name="objSearch">外部对象</param>
         /// <returns>返回的歌词列表</returns>
         public List<MusicLrcInfo> GetMusicLrcList(SearchMusicInfo info, ILRCSearch objSearch)
         {

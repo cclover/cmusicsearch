@@ -123,7 +123,6 @@ namespace CMusicSearch.BaiduMusic
 
                 // 过滤掉重复地址
                 var urlList = musicUrlList;
-                //var urlList = (from list in musicUrlList select list).Distinct();
 
                 // 每个不同的地址，组成一个音乐信息
                 foreach (string url in urlList)
@@ -143,8 +142,5 @@ namespace CMusicSearch.BaiduMusic
             }
             return musicInfoList;
         }
-
-
-
     }
 }
