@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Test")]
+[assembly: AssemblyTitle("CMusicSearcher")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CC&YZX")]
-[assembly: AssemblyProduct("Test")]
+[assembly: AssemblyProduct("CMusicSearcher")]
 [assembly: AssemblyCopyright("Copyright © CC&YZX 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
