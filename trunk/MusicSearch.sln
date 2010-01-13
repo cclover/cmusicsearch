@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicWeb", "MusicWeb\MusicWeb.csproj", "{AA1197AC-2DD0-4D4C-A191-8A55866DECDD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{DB6DE06A-4171-4FEA-BAC3-087E4C2DB15C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCommon", "MusicCommon\MusicCommon.csproj", "{722B5BB4-683A-438A-9B5A-620459AAA68B}"
@@ -43,18 +41,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MusicPlugin", "MusicPlugin"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISearch", "ISearch\ISearch.csproj", "{F0740208-8220-4381-AABF-279C86B090EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicService", "MusicService\MusicService.csproj", "{2C4ABEA8-DBC1-436C-82BD-AF51F6E4BDA3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AA1197AC-2DD0-4D4C-A191-8A55866DECDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA1197AC-2DD0-4D4C-A191-8A55866DECDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA1197AC-2DD0-4D4C-A191-8A55866DECDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA1197AC-2DD0-4D4C-A191-8A55866DECDD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DB6DE06A-4171-4FEA-BAC3-087E4C2DB15C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB6DE06A-4171-4FEA-BAC3-087E4C2DB15C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB6DE06A-4171-4FEA-BAC3-087E4C2DB15C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -91,10 +83,6 @@ Global
 		{F0740208-8220-4381-AABF-279C86B090EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0740208-8220-4381-AABF-279C86B090EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0740208-8220-4381-AABF-279C86B090EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C4ABEA8-DBC1-436C-82BD-AF51F6E4BDA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C4ABEA8-DBC1-436C-82BD-AF51F6E4BDA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C4ABEA8-DBC1-436C-82BD-AF51F6E4BDA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C4ABEA8-DBC1-436C-82BD-AF51F6E4BDA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

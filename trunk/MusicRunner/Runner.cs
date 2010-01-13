@@ -19,25 +19,15 @@ namespace CMusicSearch.MusicRunner
     /// </summary>
     public class MSLRCRunner : IDisposable
     {
-        /// <summary>
-        /// 存储音乐查找的插件
-        /// </summary>
-        private List<KeyValuePair<string, IMusicSearch>> musicSearcher = new List<KeyValuePair<string, IMusicSearch>>();
-        
-        /// <summary>
-        /// 存储歌词查找的插件
-        /// </summary>
-        private List<ILRCSearch> lrcSearcher = new List<ILRCSearch>();
-
+        MusicClientConfig mcc = MusicClientConfig.GetInstance();
         #region 方法封装
         /// <summary>
         /// Runner初始化
         /// 功能：插件加载
         /// </summary>
-        public void Initialize()
+        public static bool Initialize()
         {
-            musicSearcher.Clear();
-            lrcSearcher.Clear();
+            MusicClientConfig innermcc = MusicClientConfig.GetInstance();
             //获取“Plugin”目录下的文件
             string[] filepaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/Plugin/","*.dll");
             foreach (string ItemPath in filepaths)
@@ -56,16 +46,21 @@ namespace CMusicSearch.MusicRunner
                     //加载音乐搜索插件
                     if (objSearch is IMusicSearch)
                     {
-                        musicSearcher.Add(new KeyValuePair<string, IMusicSearch>(Guid.NewGuid().ToString(), (IMusicSearch)objSearch));
+                        innermcc.MusicSearcher.Add(new KeyValuePair<string, IMusicSearch>(Guid.NewGuid().ToString(), (IMusicSearch)objSearch));
                     }
                     //加载歌词搜索插件
                     else if (objSearch is ILRCSearch)
                     {
                         //lrcSearcher.Add(new KeyValuePair<string,ILRCSearch>(Guid.NewGuid().ToString(),(ILRCSearch)objSearch));
-                        lrcSearcher.Add((ILRCSearch)objSearch);
+                        innermcc.LRCSearcher.Add((ILRCSearch)objSearch);
                     }
                 }
             }
+            if (innermcc.MusicSearcher.Count < 1)
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -79,7 +74,7 @@ namespace CMusicSearch.MusicRunner
             List<MusicInfo> lstMusic = new List<MusicInfo>();
 
             // 遍历插件，搜索音乐
-            foreach (var item in musicSearcher)
+            foreach (var item in mcc.MusicSearcher)
             {
                 //根据加载的插件所提供的方法，获取音乐信息
                 lstMusic.AddRange(crawler.GetMusicList(info, item.Value));
@@ -98,7 +93,7 @@ namespace CMusicSearch.MusicRunner
         {
             Crawler crawler = new Crawler();
             List<MusicLrcInfo> lstMusic = new List<MusicLrcInfo>();
-            foreach (var item in lrcSearcher)
+            foreach (var item in mcc.LRCSearcher)
             {
                 //根据加载的插件所提供的方法，获取歌词信息
                 lstMusic.AddRange(crawler.GetMusicLrcList(info, item));
@@ -114,12 +109,12 @@ namespace CMusicSearch.MusicRunner
         {
             Crawler crawler = new Crawler();
             //ILRCSearch objsearch = lrcSearcher.Find((x) => x.Key.Trim().Equals(objuid.ToString())).Value;
-            if (lrcSearcher.Count < 1)
+            if (mcc.LRCSearcher.Count < 1)
             {
                 return string.Empty;
             }
             //TODO:
-            ILRCSearch objsearch = lrcSearcher[0];
+            ILRCSearch objsearch = mcc.LRCSearcher[0];
             return crawler.GetMusicLyric(info, objsearch);
         }
         #endregion
@@ -128,8 +123,6 @@ namespace CMusicSearch.MusicRunner
 
         public void Dispose()
         {
-            musicSearcher.Clear();
-            lrcSearcher.Clear();
             GC.Collect();
         }
 

@@ -26,7 +26,6 @@ namespace CMusicSearch.Test
         {
             try
             {
-                Finder.Initialize();
                 SearchMusicInfo info = new SearchMusicInfo() { MusicName = EncodeConverter.UrlEncode(textBox1.Text.Trim()), MusicFormat = SearchMusicFormat.MP3 };
                 var list = Finder.SearchM(info);
                 info.MusicName = textBox1.Text;
