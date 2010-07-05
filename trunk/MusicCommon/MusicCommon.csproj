@@ -44,9 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\DownloadMusicInfo.cs" />
     <Compile Include="Entity\MusicInfo.cs" />
     <Compile Include="Entity\MusicLrcInfo.cs" />
     <Compile Include="Entity\SearchMusicInfo.cs" />
+    <Compile Include="Enum\DownloadEnum.cs" />
     <Compile Include="Function\CommonOperator.cs" />
     <Compile Include="Function\EncodeConverter.cs" />
     <Compile Include="Const\CommonConst.cs" />
