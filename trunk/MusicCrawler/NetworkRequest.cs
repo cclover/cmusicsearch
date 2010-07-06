@@ -52,12 +52,15 @@ namespace CMusicSearch.MusicCrawler
                         if (musicPageRes.StatusCode == HttpStatusCode.OK)
                         {
                             // 获取响应的页面流
-                            Stream pageStrem = musicPageRes.GetResponseStream();
-
-                            // 读取页面流，获取页面HTML字符串,去除指定的标签
-                            StreamReader reader = new StreamReader(pageStrem, encode);
-                            pageHtml = ReplaceHtml(reader.ReadToEnd(), filterReg);
-                            return PageRequestResults.Success;
+                            using (Stream pageStrem = musicPageRes.GetResponseStream())
+                            {
+                                // 读取页面流，获取页面HTML字符串,去除指定的标签
+                                using (StreamReader reader = new StreamReader(pageStrem, encode))
+                                {
+                                    pageHtml = ReplaceHtml(reader.ReadToEnd(), filterReg);
+                                    return PageRequestResults.Success;
+                                }
+                            }
                         }
                         else
                         {
