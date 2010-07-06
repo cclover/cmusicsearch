@@ -36,7 +36,12 @@ namespace CMusicSearch.MusicCommon
         /// <summary>
         /// 下载错误状态
         /// </summary>
-        ST_ERROR_DOWNLOAD
+        ST_ERROR_DOWNLOAD,
+
+        /// <summary>
+        /// 下载完成
+        /// </summary>
+        ST_OVER_DOWNLOAD
 
     }
 }

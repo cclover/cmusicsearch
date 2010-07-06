@@ -80,15 +80,31 @@ namespace CMusicSearch.MusicDownload
                                     //
                                     while (downloadItem.DownloadSize < downloadItem.FileSize)
                                     {
-                                        //从流中读取到文件流中
+                                        // 检查是否被取消
+                                        if (downloadManager.TaskCanStop(downloadItem.DownloadTaskID))
+                                        {
+                                            break;
+                                        }
 
+                                        // 检查是否被暂停
+                                        if (downloadManager.TaskCanStop(downloadItem.DownloadTaskID))
+                                        {
+                                            downloadItem.DownloadStatus = DownloadStatus.ST_STOP_DOWNLOAD;
+                                            downloadManager.ReportProgress(downloadItem); //汇报暂停时下载进度 
+                                            break;
+                                        }
+
+                                        //从流中读取到文件流中
                                         byte[] buffer = new byte[1024];
                                         int readSize = remoteStream.Read(buffer, 0, buffer.Length);
                                         fs.Write(buffer, 0, buffer.Length);
                                         downloadItem.DownloadSize += readSize;
                                         downloadItem.DownloadStatus = DownloadStatus.ST_IS_DOWNLOAD;
-                                        downloadManager.ReportProgress(downloadItem);  //汇报下载进度
+                                        downloadManager.ReportProgress(downloadItem);  //汇报当前下载进度
                                     }
+
+                                    //完成下载，程序退出
+                                    return PageRequestResults.Success;
                                 }
                             }
                         }
