@@ -3,23 +3,21 @@
 namespace CMusicSearch.MusicCommon
 {
     /// <summary>
-    /// 音乐信息的实体类
+    /// 音乐下载任务的实体类
     /// </summary>
     [Serializable]
     public class DownloadMusicTask : ICloneable
     {
-
         /// <summary>
-        /// 下载编号
+        /// 下载任务ID
         /// </summary>
-        public int DownloadID
+        public Guid DownloadTaskID
         { get; set; }
 
-
         /// <summary>
-        /// 下载GUID
+        /// 歌曲名
         /// </summary>
-        public Guid DownloadGUID
+        public string MusicName
         { get; set; }
 
 
@@ -29,14 +27,9 @@ namespace CMusicSearch.MusicCommon
         public string DownloadUrl
         { get; set; }
 
-        /// <summary>
-        /// 下载后的文件名
-        /// </summary>
-        public string MusicFileName
-        { get; set; }
 
         /// <summary>
-        /// 下载后的路径
+        /// 下载文件保存的路径
         /// </summary>
         public string MusicSavePath
         { get; set; }
@@ -61,31 +54,18 @@ namespace CMusicSearch.MusicCommon
         { get; set; }
 
 
-
         /// <summary>
-        /// 歌曲名
+        /// 下载是否被停止
         /// </summary>
-        public string MusicName
+        public bool IsStop
         { get; set; }
 
-        /// <summary>
-        /// 歌手名
-        /// </summary>
-        public string SingerName
-        { get; set; }
 
         /// <summary>
-        /// 歌曲专辑
+        /// 下载是否被取消
         /// </summary>
-        public string Album
+        public bool IsCancle
         { get; set; }
-
-        /// <summary>
-        /// 歌曲格式
-        /// </summary>
-        public MusicFormats MusicFormat
-        { get; set; }
-
 
         /// <summary>
         /// 对象的浅拷贝
