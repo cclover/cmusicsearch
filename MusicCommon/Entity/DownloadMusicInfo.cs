@@ -53,6 +53,11 @@ namespace CMusicSearch.MusicCommon
         public DownloadStatus DownloadStatus
         { get; set; }
 
+        /// <summary>
+        /// 下载速度
+        /// </summary>
+        public int DownloadSpeed
+        { get; set; }
 
         /// <summary>
         /// 下载是否被停止

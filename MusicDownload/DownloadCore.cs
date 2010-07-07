@@ -94,11 +94,18 @@ namespace CMusicSearch.MusicDownload
                                             break;
                                         }
 
+                                        
+                                        
+
                                         //从流中读取到文件流中
                                         byte[] buffer = new byte[1024];
+                                        TimeSpan readStart = new TimeSpan(DateTime.Now.Ticks);
                                         int readSize = remoteStream.Read(buffer, 0, buffer.Length);
+                                        TimeSpan readEnd = new TimeSpan(DateTime.Now.Ticks);
+                                        TimeSpan ts = readEnd.Subtract(readStart).Duration();
                                         fs.Write(buffer, 0, buffer.Length);
                                         downloadItem.DownloadSize += readSize;
+                                        downloadItem.DownloadSpeed = ts.Milliseconds;
                                         downloadItem.DownloadStatus = DownloadStatus.ST_IS_DOWNLOAD;
                                         downloadManager.ReportProgress(downloadItem);  //汇报当前下载进度
                                     }
