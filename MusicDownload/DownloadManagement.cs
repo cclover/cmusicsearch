@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using CMusicSearch.MusicCommon;
+
 
 namespace CMusicSearch.MusicDownload
 {
@@ -13,6 +14,8 @@ namespace CMusicSearch.MusicDownload
     /// </summary>
     class DownloadManagement
     {
+
+        #region 私有变量
         /// <summary>
         /// 等待下载的任务列表
         /// </summary>
@@ -41,7 +44,10 @@ namespace CMusicSearch.MusicDownload
         private readonly SendOrPostCallback progressReporter;
         private readonly SendOrPostCallback operationCompleted;
 
+        #endregion
 
+
+        #region 构造函数
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -62,6 +68,8 @@ namespace CMusicSearch.MusicDownload
             downloadTableLock = new object();
             asyncOperationLock = new object();
         }
+        #endregion
+
 
         #region 下载事件处理
 
@@ -158,11 +166,15 @@ namespace CMusicSearch.MusicDownload
 
             // 触发RunWorkerCompleted事件
             RunWorkerCompletedEventArgs arg = new RunWorkerCompletedEventArgs(item, error, item.IsCancle);
-            this.asyncOperationtTable[item.DownloadTaskID].PostOperationCompleted(this.operationCompleted, arg);
+            if (asyncOperationtTable[item.DownloadTaskID] != null)
+            {
+                asyncOperationtTable[item.DownloadTaskID].PostOperationCompleted(this.operationCompleted, arg);
+            }
 
             // 从同步管理表中删除
             lock (asyncOperationLock)
             {
+                asyncOperationtTable[item.DownloadTaskID] = null;
                 asyncOperationtTable.Remove(item.DownloadTaskID);
             }
 
@@ -214,6 +226,8 @@ namespace CMusicSearch.MusicDownload
 
         #endregion
 
+
+        #region 外部调用方法
 
         /// <summary>
         /// 开始下载
@@ -341,6 +355,18 @@ namespace CMusicSearch.MusicDownload
 
 
         /// <summary>
+        /// 暂停所有正在下载的任务
+        /// </summary>
+        public void StopAll()
+        {
+            foreach (DownloadMusicTask task in downloadTable.Values)
+            {
+                task.IsStop = true;  //设置所有下载任务为停止
+            }
+        }
+
+
+        /// <summary>
         /// 检查任务是否被取消
         /// </summary>
         /// <param name="taskID">任务ID</param>
@@ -371,6 +397,7 @@ namespace CMusicSearch.MusicDownload
                 // 从同步管理表中删除
                 lock (asyncOperationLock)
                 {
+                    asyncOperationtTable[taskID] = null;
                     asyncOperationtTable.Remove(taskID);
                 }
 
@@ -389,6 +416,32 @@ namespace CMusicSearch.MusicDownload
                 }
             }
         }
+
+
+        /// <summary>
+        /// 取消所有下载
+        /// </summary>
+        public void CancleAll()
+        {
+            //设置所有下载任务为取消
+            foreach (DownloadMusicTask task in downloadTable.Values)
+            {
+                task.IsCancle = true;
+            }
+
+            //删除等待任务的同步对象
+            foreach (DownloadMusicTask waitTask in waitDownloadList)
+            {
+                asyncOperationtTable[waitTask.DownloadTaskID] = null;
+                asyncOperationtTable.Remove(waitTask.DownloadTaskID);
+            }
+
+            //删除所有在等待的任务
+            waitDownloadList.Clear();
+        }
+
+
+        #endregion
 
     }
 

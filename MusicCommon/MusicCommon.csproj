@@ -56,6 +56,7 @@
     <Compile Include="Function\MusicDistinctHelper.cs" />
     <Compile Include="Function\MusicOperator.cs" />
     <Compile Include="Enum\PageRequestResults.cs" />
+    <Compile Include="Function\NetworkHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Function\RegexHelper.cs" />
     <Compile Include="Const\SearchConfig.cs" />
