@@ -40,8 +40,19 @@ namespace CMusicSearch.MusicCommon
         UrlIsNull = 0x0101,
 
         /// <summary>
+        /// 域名解析错误
+        /// </summary>
+        DNSFailure = 0x0110,
+
+
+        /// <summary>
+        /// 代理失败
+        /// </summary>
+        ProxyFailure = 0x0111,
+
+        /// <summary>
         /// 未知错误
         /// </summary>
-        UnknowException = 0x1111,
+        UnknowException = 0x1111
     }
 }

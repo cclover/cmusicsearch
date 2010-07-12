@@ -87,6 +87,14 @@ namespace CMusicSearch.MusicCrawler
                     {
                         return PageRequestResults.ReceiveFailure;
                     }
+                    else if (webEx.Status == WebExceptionStatus.NameResolutionFailure)
+                    {
+                        return PageRequestResults.DNSFailure;
+                    }
+                    else if (webEx.Status == WebExceptionStatus.RequestProhibitedByProxy)
+                    {
+                        return PageRequestResults.ProxyFailure;
+                    }
                     else
                     {
                         return PageRequestResults.UnknowException;

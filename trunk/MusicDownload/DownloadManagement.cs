@@ -12,7 +12,7 @@ namespace CMusicSearch.MusicDownload
     /// <summary>
     /// 下载音乐文件
     /// </summary>
-    class DownloadManagement
+    public class DownloadManagement
     {
 
         #region 私有变量
@@ -156,12 +156,12 @@ namespace CMusicSearch.MusicDownload
             DownloadMusicTask item = downloadTable[taskID];
 
             //查找结束的任务是暂停（包括出错）还是 完成（包括取消）
-            var waitTask = from waitItem in waitDownloadList
-                           where waitItem.DownloadTaskID == taskID
-                           select waitItem;
+            var waitTask = (from waitItem in waitDownloadList
+                            where waitItem.DownloadTaskID == taskID
+                            select waitItem).Take(1);
 
             // 如果是被暂停的，则退出，不进行删除操作
-            if (waitTask != null && (waitTask as DownloadMusicTask).IsStop)
+            if (waitTask != null && waitTask.Count() > 0 && (waitTask as DownloadMusicTask).IsStop)
                 return;
 
             // 触发RunWorkerCompleted事件
@@ -193,7 +193,7 @@ namespace CMusicSearch.MusicDownload
                             select waitItem).Take(1);
 
                 // 从等待队列移除，并重新开始
-                if (task != null)
+                if (task != null && task.Count() > 0)
                 {
                     lock (waitListLock)
                     {
@@ -332,7 +332,7 @@ namespace CMusicSearch.MusicDownload
         /// </summary>
         /// <param name="taskID">任务ID</param>
         /// <returns>是否停止</returns>
-        public bool TaskCanStop(Guid taskID)
+        internal bool TaskCanStop(Guid taskID)
         {
             //如果在下载队列中，检查是否停止
             if (downloadTable.ContainsKey(taskID))
@@ -371,7 +371,7 @@ namespace CMusicSearch.MusicDownload
         /// </summary>
         /// <param name="taskID">任务ID</param>
         /// <returns>是否取消</returns>
-        public bool TaskCanCancle(Guid taskID)
+        internal bool TaskCanCancle(Guid taskID)
         {
             //如果在下载队列中，检查是否取消
             if (downloadTable.ContainsKey(taskID))
