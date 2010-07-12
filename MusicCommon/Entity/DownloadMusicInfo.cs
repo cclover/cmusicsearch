@@ -8,6 +8,20 @@ namespace CMusicSearch.MusicCommon
     [Serializable]
     public class DownloadMusicTask : ICloneable
     {
+        public DownloadMusicTask()
+        {
+            DownloadTaskID = Guid.Empty;
+            MusicName = string.Empty;
+            DownloadUrl = string.Empty;
+            MusicSavePath = string.Empty;
+            FileSize = 0;
+            DownloadSize = 0;
+            DownloadStatus = DownloadStatus.ST_NONE;
+            DownloadSpeed = 0;
+            IsStop = false;
+            IsCancle = false;
+        }
+
         /// <summary>
         /// 下载任务ID
         /// </summary>

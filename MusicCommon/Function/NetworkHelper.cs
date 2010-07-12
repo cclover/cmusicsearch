@@ -43,7 +43,7 @@ namespace CMusicSearch.MusicCommon
         }
 
 
-        public NetworkHelper GetNetworkHelperInstance()
+        public static NetworkHelper GetNetworkHelperInstance()
         {
             return instance;
         }
@@ -92,19 +92,19 @@ namespace CMusicSearch.MusicCommon
             if (IsNetworkAlive(out status))
             {
                 //如果WAN可用，检查能否建立连接
-                if (status == NETWORK_ALIVE_WAN)
+                //if (status == NETWORK_ALIVE_WAN)
+                //{
+                if (InternetCheckConnection("http://www.baidu.com", FLAG_ICC_FORCE_CONNECTION, 0) ||
+                    InternetCheckConnection("http://www.sina.com.cn", FLAG_ICC_FORCE_CONNECTION, 0) ||
+                    InternetCheckConnection("http://www.163.com", FLAG_ICC_FORCE_CONNECTION, 0))
                 {
-                    if (InternetCheckConnection("www.baidu.com", FLAG_ICC_FORCE_CONNECTION, 0) ||
-                        InternetCheckConnection("www.sina.com.cn", FLAG_ICC_FORCE_CONNECTION, 0) ||
-                        InternetCheckConnection("www.163.com", FLAG_ICC_FORCE_CONNECTION, 0))
-                    {
-                        return true; //如果能建立连接返回TRUE
-                    }
-                    else
-                        return false;
+                    return true; //如果能建立连接返回TRUE
                 }
                 else
                     return false;
+                //}
+                //else
+                //    return false;
             }
             return false;
         }
@@ -149,9 +149,10 @@ namespace CMusicSearch.MusicCommon
         /// <summary>
         /// 监听网络状态
         /// </summary>
-        public void ListenNetworkStatus()
+        public void ListenNetworkStatus(SynchronizationContext context)
         {
             //获得当前网络状态，并通知
+          
             bool currentStatus = IsInternetAlive();
             OnNetworkStatusChanged(new NetworkChangedEventArgs(currentStatus));
 
@@ -162,7 +163,8 @@ namespace CMusicSearch.MusicCommon
                                         if (currentStatus != tmpStatus)
                                         {
                                             currentStatus = tmpStatus;
-                                            OnNetworkStatusChanged(new NetworkChangedEventArgs(currentStatus));
+                                            context.Post(delegate { OnNetworkStatusChanged(new NetworkChangedEventArgs(currentStatus)); },null);
+                                            
                                         }
                                     }
                                     , null

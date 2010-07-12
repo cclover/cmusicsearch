@@ -10,7 +10,7 @@ using CMusicSearch.MusicCommon;
 
 namespace CMusicSearch.MusicDownload
 {
-    class DownloadCore
+    public class DownloadCore
     {
         private DownloadManagement downloadManager;
 
@@ -30,7 +30,7 @@ namespace CMusicSearch.MusicDownload
             {
                 // 设置请求信息，使用GET方式获得数据
                 HttpWebRequest musicFileReq = (HttpWebRequest)WebRequest.Create(downloadItem.DownloadUrl);
-                musicFileReq.AllowAutoRedirect = true;
+                musicFileReq.AllowAutoRedirect = false;
                 musicFileReq.Method = "GET";
                 //设置超时时间
                 musicFileReq.Timeout = SearchConfig.TIME_OUT;
@@ -94,9 +94,6 @@ namespace CMusicSearch.MusicDownload
                                             break;
                                         }
 
-                                        
-                                        
-
                                         //从流中读取到文件流中
                                         byte[] buffer = new byte[1024];
                                         TimeSpan readStart = new TimeSpan(DateTime.Now.Ticks);
@@ -128,7 +125,7 @@ namespace CMusicSearch.MusicDownload
                 {
                     //汇报下载进度
                     downloadItem.DownloadStatus = DownloadStatus.ST_ERROR_DOWNLOAD;
-                    downloadManager.ReportProgress(downloadItem);
+                    //downloadManager.ReportProgress(downloadItem);
 
                     // 异常时返回异常的原因
                     if (webEx.Status == WebExceptionStatus.Timeout)
@@ -146,6 +143,14 @@ namespace CMusicSearch.MusicDownload
                     else if (webEx.Status == WebExceptionStatus.ReceiveFailure)
                     {
                         return PageRequestResults.ReceiveFailure;
+                    }
+                    else if (webEx.Status == WebExceptionStatus.NameResolutionFailure)
+                    {
+                        return PageRequestResults.DNSFailure;
+                    }
+                    else if (webEx.Status == WebExceptionStatus.RequestProhibitedByProxy)
+                    {
+                        return PageRequestResults.ProxyFailure;
                     }
                     else
                     {
