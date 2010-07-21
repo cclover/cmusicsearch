@@ -318,7 +318,7 @@ namespace CMusicSearch.MusicDownload
             ProgressChangedEventArgs arg = new ProgressChangedEventArgs(0, userState);
             if (this.asyncOperationtTable[item.DownloadTaskID] != null)
             {
-                this.asyncOperationtTable[item.DownloadTaskID].Post(this.progressReporter, arg);
+               this.asyncOperationtTable[item.DownloadTaskID].Post(this.progressReporter, arg);
             }
             else
             {

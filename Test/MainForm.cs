@@ -37,7 +37,9 @@ namespace CMusicSearch.Test
         }
 
 
-
+        /// <summary>
+        /// 搜索歌曲
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -57,6 +59,10 @@ namespace CMusicSearch.Test
 
         }
 
+
+        /// <summary>
+        /// 搜索歌词
+        /// </summary>
         private void dataGridView2_MouseClick(object sender, MouseEventArgs e)
         {
 
@@ -70,7 +76,9 @@ namespace CMusicSearch.Test
         }
 
 
-
+        /// <summary>
+        /// 提交下载歌曲任务
+        /// </summary>
         private void btnDownload_Click(object sender, EventArgs e)
         {
             if (task != null)
@@ -81,6 +89,9 @@ namespace CMusicSearch.Test
         }
 
 
+        /// <summary>
+        /// 开始下载
+        /// </summary>
         void downloadManager_DoWork(object sender, DoWorkEventArgs e)
         {
             try
@@ -97,6 +108,9 @@ namespace CMusicSearch.Test
         }
 
 
+        /// <summary>
+        /// 下载过程更新进度
+        /// </summary>
         void downloadManager_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             try
@@ -119,6 +133,9 @@ namespace CMusicSearch.Test
         }
 
 
+        /// <summary>
+        /// 下载结束时提示
+        /// </summary>
         void downloadManager_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try
@@ -138,6 +155,11 @@ namespace CMusicSearch.Test
         }
 
 
+        /// <summary>
+        /// 显示网络状态
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void networkHelp_NetworkStatusChanged(object sender, NetworkHelper.NetworkChangedEventArgs e)
         {
             if (e.IsNetworkAlive)
@@ -146,6 +168,9 @@ namespace CMusicSearch.Test
                 labNetStatus.Text = "网络连接失败";
         }
 
+        /// <summary>
+        /// 生成下载任务
+        /// </summary>
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex > -1)

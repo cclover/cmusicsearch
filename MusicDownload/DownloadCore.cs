@@ -80,7 +80,8 @@ namespace CMusicSearch.MusicDownload
                                     downloadItem.DownloadStatus = DownloadStatus.ST_READY_DOWNLOAD;
                                     downloadItem.FileSize = musicFileRes.ContentLength;
                                     //downloadManager.ReportProgress(downloadItem);  //汇报当前下载进度
-                                    //
+                                    
+                                    //检查是否下载完成
                                     while (downloadItem.DownloadSize < downloadItem.FileSize)
                                     {
                                         // 检查是否被取消
