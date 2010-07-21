@@ -50,6 +50,7 @@
     <Compile Include="DownloadCore.cs" />
     <Compile Include="DownloadManagement.cs">
     </Compile>
+    <Compile Include="FileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

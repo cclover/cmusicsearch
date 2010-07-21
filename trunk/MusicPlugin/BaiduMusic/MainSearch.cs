@@ -19,7 +19,7 @@ namespace CMusicSearch.BaiduMusic
         /// <summary>
         ///  获得TR块中每个TD块信息(歌曲地址、歌曲名、歌手名)
         /// </summary>
-        private readonly string BAIDU_MUSIC_INFO_PATTERN = "<td class=tdn>.*?</td><td class=d><a href=\"(?<LinkUrl>.*?)\"\\s+target=.*?>(?<MusicName>.*?)\\s*</a></td><td>(<a.*?>(?<Singer1>.*?)</a>.*?)?(<a.*?>(?<Singer2>.*?)</a>.*?)?(<a.*?>(?<Singer3>.*?)</a>.*?)?(<a.*?>.*?</a>.*?).*?</td>";
+        private readonly string BAIDU_MUSIC_INFO_PATTERN = "<td class=tdn>.*?</td><td class=d><a href=\"(?<LinkUrl>.*?)\"\\s+target=.*?>(?<MusicName>.*?)\\s*</a></td><td>(<a.*?>(?<Singer1>.*?)</a>.*?)?(<a.*?>(?<Singer2>.*?)</a>.*?)?(<a.*?>(?<Singer3>.*?)</a>.*?)?.*?</td>";
 
         /// <summary>
         /// 获得TR块中每个TD块信息(专辑名)

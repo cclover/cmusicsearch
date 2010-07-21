@@ -44,7 +44,6 @@ namespace CMusicSearch.MusicCommon
         /// </summary>
         DNSFailure = 0x0110,
 
-
         /// <summary>
         /// 代理失败
         /// </summary>
