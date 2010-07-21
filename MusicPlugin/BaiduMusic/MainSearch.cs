@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Text;
 
 using CMusicSearch.ISearch;
 using CMusicSearch.MusicCommon;
+
 
 namespace CMusicSearch.BaiduMusic
 {
@@ -46,11 +48,13 @@ namespace CMusicSearch.BaiduMusic
                     foreach (string tr in musicTR)
                     {
                         // 把每个DIV块中取得的歌曲信息存入歌曲列表
-                        lstMusic.AddRange(MusicInfoBuild(tr));
+                        var list = MusicInfoBuild(tr);
+                        if(list != null)
+                            lstMusic.AddRange(list);
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
 
             }
@@ -95,6 +99,7 @@ namespace CMusicSearch.BaiduMusic
 
             // 从TR块中获取音乐基本信息
             tr = tr.Replace("\n", string.Empty);
+            tr = tr.Replace("&nbsp;", string.Empty);
             GroupCollection infoGroup = RegexHelper.GetRegexGroup(tr, BAIDU_MUSIC_INFO_PATTERN, RegexOptions.IgnoreCase);
             if (infoGroup == null)
             {
@@ -115,7 +120,7 @@ namespace CMusicSearch.BaiduMusic
             string detailLink = infoGroup["LinkUrl"].Value;
             if (!string.IsNullOrEmpty(detailLink))
             {
-                List<string> musicUrlList = MusicOperator.GetMusicUrlList(detailLink);
+                List<string> musicUrlList = MusicOperator.GetMusicUrlList(detailLink);  //目前一些文件名后面没有后缀名
                 if (musicUrlList == null || musicUrlList.Count == 0)
                 {
                     return null;

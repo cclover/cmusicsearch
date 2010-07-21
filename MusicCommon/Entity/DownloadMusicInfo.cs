@@ -34,13 +34,11 @@ namespace CMusicSearch.MusicCommon
         public string MusicName
         { get; set; }
 
-
         /// <summary>
         /// 歌曲下载地址
         /// </summary>
         public string DownloadUrl
         { get; set; }
-
 
         /// <summary>
         /// 下载文件保存的路径
@@ -48,6 +46,11 @@ namespace CMusicSearch.MusicCommon
         public string MusicSavePath
         { get; set; }
 
+        /// <summary>
+        /// 下载时进度文件
+        /// </summary>
+        public String MusicTmpPath
+        { get; set; }
 
         /// <summary>
         /// 文件的大小
