@@ -43,9 +43,9 @@ namespace CMusicSearch.MusicDownload
                     musicFileReq.Proxy = proxy;
                 }
 
-                // 判断是否断点续传
+                // 判断是否断点续传()
                 FileStream fs;
-                if (!File.Exists(downloadItem.MusicSavePath))
+                if (!File.Exists(string.Format("{0}.tmp",downloadItem.MusicSavePath)))
                 {
                     //不是断点续传时，创建文件
                     fs = new FileStream(downloadItem.MusicSavePath, FileMode.Create, FileAccess.Write);
@@ -66,7 +66,10 @@ namespace CMusicSearch.MusicDownload
                     using (HttpWebResponse musicFileRes = (HttpWebResponse)musicFileReq.GetResponse())
                     {
                         // 如果HTTP为200，获取相应的文件流
-                        if (musicFileRes.StatusCode == HttpStatusCode.OK)
+                        if (musicFileRes.StatusCode == HttpStatusCode.OK 
+                            || musicFileRes.StatusCode == HttpStatusCode.PartialContent
+                            || musicFileRes.StatusCode == HttpStatusCode.Moved
+                            || musicFileRes.StatusCode == HttpStatusCode.MovedPermanently)
                         {
                             // 获取响应的页面流
                             using (Stream remoteStream = musicFileRes.GetResponseStream())
@@ -76,7 +79,7 @@ namespace CMusicSearch.MusicDownload
                                     //设置下载状态和下载大小
                                     downloadItem.DownloadStatus = DownloadStatus.ST_READY_DOWNLOAD;
                                     downloadItem.FileSize = musicFileRes.ContentLength;
-
+                                    //downloadManager.ReportProgress(downloadItem);  //汇报当前下载进度
                                     //
                                     while (downloadItem.DownloadSize < downloadItem.FileSize)
                                     {
@@ -95,14 +98,17 @@ namespace CMusicSearch.MusicDownload
                                         }
 
                                         //从流中读取到文件流中
-                                        byte[] buffer = new byte[1024];
+                                        byte[] buffer = new byte[4096];
                                         TimeSpan readStart = new TimeSpan(DateTime.Now.Ticks);
                                         int readSize = remoteStream.Read(buffer, 0, buffer.Length);
                                         TimeSpan readEnd = new TimeSpan(DateTime.Now.Ticks);
                                         TimeSpan ts = readEnd.Subtract(readStart).Duration();
                                         fs.Write(buffer, 0, buffer.Length);
                                         downloadItem.DownloadSize += readSize;
-                                        downloadItem.DownloadSpeed = ts.Milliseconds;
+                                        if (ts.Milliseconds != 0)
+                                            downloadItem.DownloadSpeed = (readSize / ts.Milliseconds) * 1000;
+                                        else
+                                            downloadItem.DownloadSpeed = 0;
                                         downloadItem.DownloadStatus = DownloadStatus.ST_IS_DOWNLOAD;
                                         downloadManager.ReportProgress(downloadItem);  //汇报当前下载进度
                                     }
@@ -125,7 +131,7 @@ namespace CMusicSearch.MusicDownload
                 {
                     //汇报下载进度
                     downloadItem.DownloadStatus = DownloadStatus.ST_ERROR_DOWNLOAD;
-                    //downloadManager.ReportProgress(downloadItem);
+                    downloadManager.ReportProgress(downloadItem);
 
                     // 异常时返回异常的原因
                     if (webEx.Status == WebExceptionStatus.Timeout)
@@ -157,12 +163,16 @@ namespace CMusicSearch.MusicDownload
                         return PageRequestResults.UnknowException;
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
                     //汇报下载进度
                     downloadItem.DownloadStatus = DownloadStatus.ST_ERROR_DOWNLOAD;
                     downloadManager.ReportProgress(downloadItem);
                     return PageRequestResults.UnknowException;
+                }
+                finally
+                {
+                    fs.Close();
                 }
             }
             return PageRequestResults.UrlIsNull;
