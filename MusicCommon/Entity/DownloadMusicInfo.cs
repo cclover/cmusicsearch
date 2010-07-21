@@ -14,12 +14,14 @@ namespace CMusicSearch.MusicCommon
             MusicName = string.Empty;
             DownloadUrl = string.Empty;
             MusicSavePath = string.Empty;
+            MusicConfigPath = string.Empty;
             FileSize = 0;
             DownloadSize = 0;
             DownloadStatus = DownloadStatus.ST_NONE;
             DownloadSpeed = 0;
             IsStop = false;
             IsCancle = false;
+            Error = null;
         }
 
         /// <summary>
@@ -47,9 +49,9 @@ namespace CMusicSearch.MusicCommon
         { get; set; }
 
         /// <summary>
-        /// 下载时进度文件
+        /// 下载时配置文件
         /// </summary>
-        public String MusicTmpPath
+        public String MusicConfigPath
         { get; set; }
 
         /// <summary>
@@ -82,11 +84,17 @@ namespace CMusicSearch.MusicCommon
         public bool IsStop
         { get; set; }
 
-
         /// <summary>
         /// 下载是否被取消
         /// </summary>
         public bool IsCancle
+        { get; set; }
+
+
+        /// <summary>
+        /// 错误信息
+        /// </summary>
+        public Exception Error
         { get; set; }
 
         /// <summary>

@@ -96,8 +96,6 @@ namespace CMusicSearch.Test
         {
             try
             {
-
-
                 DownloadCore core = new DownloadCore(downloadManager);
                 core.FileDownload((e.Argument as DownloadMusicTask));
             }
@@ -121,7 +119,7 @@ namespace CMusicSearch.Test
                 float process = 0;
                 if (totalSize != 0)
                     process = (downSize / totalSize) * 100;
-                if (task.DownloadSpeed != 0)
+                if (task.DownloadSpeed != -1)
                     speedlab.Text = String.Format("{0}k/s", task.DownloadSpeed / 1024);
                 progressDownload.Value = (int)process;
             }
@@ -146,6 +144,7 @@ namespace CMusicSearch.Test
                     MessageBox.Show(ex.Message + result.DownloadStatus.ToString());
                 else
                     MessageBox.Show(result.DownloadStatus.ToString());
+                FileManager.FileDownloadOver(result.MusicSavePath, result.MusicConfigPath, result.DownloadStatus);
             }
             catch (System.Exception ex)
             {
@@ -178,8 +177,12 @@ namespace CMusicSearch.Test
                 task = new DownloadMusicTask();
                 task.DownloadUrl = dataGridView1["MusicUrl", e.RowIndex].Value.ToString();
                 task.MusicName = dataGridView1["MusicName", e.RowIndex].Value.ToString();
-
-                task.MusicSavePath = string.Format(@"c:\{0}.{1}", task.MusicName, dataGridView1["MusicFormat", e.RowIndex].Value.ToString());
+                task.MusicSavePath = FileManager.GetSavaPath(task.MusicName, dataGridView1["MusicFormat", e.RowIndex].Value.ToString());
+                if (string.IsNullOrEmpty(task.MusicSavePath))
+                {
+                    task = null;
+                    MessageBox.Show("无法保存文件");
+                }
             }
         }
 

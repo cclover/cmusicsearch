@@ -10,7 +10,8 @@ using CMusicSearch.MusicCommon;
 namespace CMusicSearch.MusicDownload
 {
     /// <summary>
-    /// 下载音乐文件
+    /// 负责管理下载任务的调度，不负责具体的文件下载。
+    /// 基于事件驱动模型的多任务多线程后台下载管理器。功能类似BackGroundWork控件，支持多任务，UI操作最终被封送到UI线程。
     /// </summary>
     public class DownloadManagement
     {
@@ -138,17 +139,16 @@ namespace CMusicSearch.MusicDownload
         /// <param name="argument"></param>
         private void WorkerThreadStart(object argument)
         {
-            Exception error = null;
-
             //执行DoWork委托绑定的事件
             try
             {
                 DoWorkEventArgs e = new DoWorkEventArgs(argument);
                 this.OnDoWork(e);
             }
-            catch (Exception exception2)
+            catch
             {
-                error = exception2;
+                //因为OnDoWork是FileDownload方法，里面已经处理了异常
+                //所以这里实际捕获不到下载引发的异常
             }
 
             //执行完获得下载任务的实体类
@@ -164,21 +164,21 @@ namespace CMusicSearch.MusicDownload
             if (waitTask != null && waitTask.Count() > 0 && (waitTask as DownloadMusicTask).IsStop)
                 return;
 
-            // 触发RunWorkerCompleted事件
-            RunWorkerCompletedEventArgs arg = new RunWorkerCompletedEventArgs(item, error, item.IsCancle);
+            // 触发RunWorkerCompleted事件,发送到UI线程操作
+            RunWorkerCompletedEventArgs arg = new RunWorkerCompletedEventArgs(item, item.Error, item.IsCancle);
             if (asyncOperationtTable[item.DownloadTaskID] != null)
             {
                 asyncOperationtTable[item.DownloadTaskID].PostOperationCompleted(this.operationCompleted, arg);
             }
 
-            // 从同步管理表中删除
+            // 从同步管理表中删除已经完成（或取消）下载的任务
             lock (asyncOperationLock)
             {
                 asyncOperationtTable[item.DownloadTaskID] = null;
                 asyncOperationtTable.Remove(item.DownloadTaskID);
             }
 
-            //从下载队列中移除已经下载完的文件,
+            //从下载队列中移除已经下载完（或取消）的文件,
             lock (downloadTableLock)
             {
                 downloadTable.Remove(item.DownloadTaskID);
@@ -281,12 +281,11 @@ namespace CMusicSearch.MusicDownload
         /// <summary>
         /// 开始回报下载进度
         /// </summary>
-        /// <param name="percentProgress"></param>
-        /// <param name="userState"></param>
-        public void ReportProgress(object userState)
+        /// <param name="userState">下载任务信息</param>
+        public void ReportProgress(object taskState)
         {
             //如果是暂停状态,把当前任务放入等待队列，而从等待队列中选一个开始下载
-            DownloadMusicTask item = userState as DownloadMusicTask;
+            DownloadMusicTask item = taskState as DownloadMusicTask;
             if (item.DownloadStatus == DownloadStatus.ST_STOP_DOWNLOAD)
             {
                 // 从下载队列删除
@@ -314,15 +313,15 @@ namespace CMusicSearch.MusicDownload
                 }
             }
 
-            //通知UI，进入变化
-            ProgressChangedEventArgs arg = new ProgressChangedEventArgs(0, userState);
+            //通知UI,进度和状态发生变化（进度百分比客户端从taskState取得自己计算，这里返回0）
+            ProgressChangedEventArgs arg = new ProgressChangedEventArgs(0, taskState);
             if (this.asyncOperationtTable[item.DownloadTaskID] != null)
             {
-               this.asyncOperationtTable[item.DownloadTaskID].Post(this.progressReporter, arg);
+                this.asyncOperationtTable[item.DownloadTaskID].Post(this.progressReporter, arg);
             }
             else
             {
-                this.progressReporter(arg); //不对
+                //this.progressReporter(arg); //非UI线程修改UI控件会报错
             }
         }
 

@@ -29,9 +29,14 @@ namespace CMusicSearch.MusicCommon
         ST_WAIT_DOWNLOAD,
 
         /// <summary>
-        /// 停止下载状态
+        /// 暂停下载状态
         /// </summary>
         ST_STOP_DOWNLOAD,
+
+        /// <summary>
+        /// 取消下载状态
+        /// </summary>
+        ST_CANCEL_DOWNLOAD,
 
         /// <summary>
         /// 下载错误状态
