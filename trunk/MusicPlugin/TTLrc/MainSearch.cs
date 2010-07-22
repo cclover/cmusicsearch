@@ -56,7 +56,7 @@ namespace CMusicSearch.TTLrc
             try
             {
                 //千千静听歌词搜索列表地址
-                string TTLrcUrl = "http://ttlrcct.qianqian.com/dll/lyricsvr.dll?sh?Artist={0}&Title={1}";
+                string TTLrcUrl = "http://ttlrcct2.qianqian.com/dll/lyricsvr.dll?sh?Artist={0}&Title={1}";
                 return string.Format(TTLrcUrl, new object[] { EncodeConverter.ToHexString(info.SingerName), EncodeConverter.ToHexString(info.MusicName) });
             }
             catch(Exception ex)
@@ -74,7 +74,7 @@ namespace CMusicSearch.TTLrc
         {
             try
             {
-                //千千静听歌词获取地址
+                //千千静听歌词获取地址 
                 string TTLrcUrl = "http://ttlrcct2.qianqian.com/dll/lyricsvr.dll?dl?Id={0}&Code={1}&uid=03&mac=002421585787&hds=WD-WMAV22344505";
                 return string.Format(TTLrcUrl, new object[] { info.ID, TTEncode.CreateQianQianCode(info.Artist, info.Title, int.Parse(info.ID)) });
             }
