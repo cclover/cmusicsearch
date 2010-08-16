@@ -254,22 +254,23 @@ namespace CMusicSearch.MusicDownload
         public void RunWorkerAsync(DownloadMusicTask downloadItem)
         {
             //如果目前下载数量小于5条，则通过委托启动新的下载任务
+
+            //设置下载状态
+            downloadItem.IsStop = false;
+            downloadItem.DownloadStatus = DownloadStatus.ST_READY_DOWNLOAD;
+
+            // 对于新增的任务，添加到同步管理表
+            if (!asyncOperationtTable.ContainsKey(downloadItem.DownloadTaskID))
+            {
+                AsyncOperation asyncOperation = AsyncOperationManager.CreateOperation(downloadItem.DownloadTaskID);
+                lock (asyncOperationLock)
+                {
+                    asyncOperationtTable.Add(downloadItem.DownloadTaskID, asyncOperation);
+                }
+            }
+
             if (downloadTable.Count < 5)
             {
-                //设置下载状态
-                downloadItem.IsStop = false;
-                downloadItem.DownloadStatus = DownloadStatus.ST_READY_DOWNLOAD;
-
-                // 对于新增的任务，添加到同步管理表
-                if (!asyncOperationtTable.ContainsKey(downloadItem.DownloadTaskID))
-                {
-                    AsyncOperation asyncOperation = AsyncOperationManager.CreateOperation(downloadItem.DownloadTaskID);
-                    lock (asyncOperationLock)
-                    {
-                        asyncOperationtTable.Add(downloadItem.DownloadTaskID, asyncOperation);
-                    }
-                }
-
                 // 如果开始的是等待任务，则从等待列表删除
                 if (waitDownloadTable.ContainsKey(downloadItem.DownloadTaskID))
                 {
