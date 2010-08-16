@@ -17,12 +17,14 @@ namespace CMusicSearch.Test
 {
     public partial class MainForm : Form
     {
-        MSLRCRunner Finder = new MSLRCRunner();
-        NetworkHelper networkHelp = NetworkHelper.GetNetworkHelperInstance();
-        DownloadManagement downloadManager = new DownloadManagement();
-        DownloadMusicTask task = null;
 
+        #region 字段
+        MSLRCRunner Finder = new MSLRCRunner(); //搜索对象
+        NetworkHelper networkHelp = NetworkHelper.GetNetworkHelperInstance();//网络辅助对象
+        DownloadManagement downloadManager = new DownloadManagement(); //下载管理器
+        DownloadMusicTask task = null; //新下载任务
         DataTable downListTable = new DataTable(); //下载列表信息
+        #endregion
 
         public MainForm()
         {
@@ -55,6 +57,24 @@ namespace CMusicSearch.Test
             dataGridView3.DataSource = downListTable;
         }
 
+        #region 网络状态
+
+        /// <summary>
+        /// 显示网络状态
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void networkHelp_NetworkStatusChanged(object sender, NetworkHelper.NetworkChangedEventArgs e)
+        {
+            if (e.IsNetworkAlive)
+                labNetStatus.Text = "网络状态正常";
+            else
+                labNetStatus.Text = "网络连接失败";
+        }
+
+        #endregion
+
+        #region 搜索结果
 
         /// <summary>
         /// 搜索歌曲
@@ -63,13 +83,19 @@ namespace CMusicSearch.Test
         {
             try
             {
-                SearchMusicInfo info = new SearchMusicInfo() { MusicName = EncodeConverter.UrlEncode(textBox1.Text.Trim()), MusicFormat = SearchMusicFormat.MP3 };
-                var list = Finder.SearchM(info);
-                info.MusicName = textBox1.Text;
-                var lstlrc = Finder.SearchL(info);
+                Thread searchThread = new Thread(
+                    delegate()
+                    {
+                        SearchMusicInfo info = new SearchMusicInfo() { MusicName = EncodeConverter.UrlEncode(textBox1.Text.Trim()), MusicFormat = SearchMusicFormat.MP3 };
+                        var list = Finder.SearchM(info);
+                        info.MusicName = textBox1.Text;
+                        var lstlrc = Finder.SearchL(info);
 
-                dataGridView1.DataSource = list;
-                dataGridView2.DataSource = lstlrc;
+                        //多线程使用UI控件
+                        this.Invoke(new Action<List<MusicInfo>, List<MusicLrcInfo>>(DataBind), new object[] { list, lstlrc });
+                    });
+                searchThread.Start();
+
             }
             catch (Exception ex)
             {
@@ -78,13 +104,25 @@ namespace CMusicSearch.Test
 
         }
 
+        /// <summary>
+        /// 数据绑定
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="lstlrc"></param>
+        private void DataBind(List<MusicInfo> list, List<MusicLrcInfo> lstlrc)
+        {
+            dataGridView1.DataSource = list;
+            dataGridView2.DataSource = lstlrc;
+        }
+
 
         /// <summary>
         /// 搜索歌词
         /// </summary>
         private void dataGridView2_MouseClick(object sender, MouseEventArgs e)
         {
-
+            if (e.Button != MouseButtons.Left)
+                return;
             MusicLrcInfo info = ((List<MusicLrcInfo>)dataGridView2.DataSource)[dataGridView2.CurrentRow.Index];
             if (info == null)
             {
@@ -94,7 +132,9 @@ namespace CMusicSearch.Test
             textBox2.Text = Finder.GetLyricContent(info);
         }
 
+        #endregion
 
+        #region 下载状态
         /// <summary>
         /// 开始下载
         /// </summary>
@@ -125,8 +165,8 @@ namespace CMusicSearch.Test
                 float process = 0;
                 if (totalSize != 0)
                     process = (downSize / totalSize) * 100;
-                if (task.DownloadSpeed != -1)
-                    speedlab.Text = String.Format("{0}k/s", task.DownloadSpeed / 1024);
+                //if (task.DownloadSpeed != -1)
+                //String.Format("{0}k/s", task.DownloadSpeed / 1024);
 
                 //更新下载信息
                 DataRow[] updateRow = downListTable.Select("GUID='" + task.DownloadTaskID.ToString() + "'");
@@ -181,16 +221,16 @@ namespace CMusicSearch.Test
                     MessageBox.Show(ex.Message + result.DownloadStatus.ToString());
 
                 //跟新下载状态
-                DataRow[] updateRow = downListTable.Select("GUID='" + task.DownloadTaskID.ToString() + "'");
-                if (task.DownloadStatus == DownloadStatus.ST_OVER_DOWNLOAD)
+                DataRow[] updateRow = downListTable.Select("GUID='" + result.DownloadTaskID.ToString() + "'");
+                if (result.DownloadStatus == DownloadStatus.ST_OVER_DOWNLOAD)
                 {
                     updateRow[0]["status"] = "下载完成";
                 }
-                else if (task.DownloadStatus == DownloadStatus.ST_CANCEL_DOWNLOAD)
+                else if (result.DownloadStatus == DownloadStatus.ST_CANCEL_DOWNLOAD)
                 {
-                    downListTable.Rows.Remove(updateRow[0]);
+                    downListTable.Rows.Remove(updateRow[0]); //删除table数据
                 }
-                else if (task.DownloadStatus == DownloadStatus.ST_NONE)
+                else if (result.DownloadStatus == DownloadStatus.ST_NONE)
                 {
                     updateRow[0]["status"] = string.Empty;
                 }
@@ -203,20 +243,6 @@ namespace CMusicSearch.Test
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-
-        /// <summary>
-        /// 显示网络状态
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void networkHelp_NetworkStatusChanged(object sender, NetworkHelper.NetworkChangedEventArgs e)
-        {
-            if (e.IsNetworkAlive)
-                labNetStatus.Text = "网络状态正常";
-            else
-                labNetStatus.Text = "网络连接失败";
         }
 
 
@@ -265,39 +291,96 @@ namespace CMusicSearch.Test
             }
         }
 
+        #endregion
 
-        /// <summary>
-        /// 暂停和继续
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
+        #region 下载的菜单操作
+
+        int downloadIndex = -1;
+        private void dataGridView3_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (button2.Text == "停止")
+            downloadIndex = e.RowIndex;
+            pauseAllToolStripMenuItem.Enabled = true;
+            deleteAllToolStripMenuItem.Enabled = true;
+            deleteToolStripMenuItem.Enabled = true;
+            pauseToolStripMenuItem.Enabled = true;
+            if (downListTable.Rows[downloadIndex]["status"].ToString() == "下载完成")
+                startToolStripMenuItem.Enabled = true;
+            if (downListTable.Rows[downloadIndex]["status"].ToString() == "下载中")
             {
-                downloadManager.StopAsync(task.DownloadTaskID);
-                button2.Text = "继续";
+                pauseToolStripMenuItem.Text = "暂停";
             }
-            else
+            if (downListTable.Rows[downloadIndex]["status"].ToString() == "暂停下载")
             {
-                if (task != null)
-                {
-                    downloadManager.RunWorkerAsync(task);
-                }
-                button2.Text = "停止";
+                pauseToolStripMenuItem.Text = "继续下载";
             }
+            contextMenuDownload.Show(MousePosition);
         }
 
 
         /// <summary>
-        /// 取消下载
+        /// 重新下载
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
+        private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (task != null)
-                downloadManager.CancleAsync(task.DownloadTaskID);
+
+        }
+
+        /// <summary>
+        /// 暂停，继续
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Guid taskID = (Guid)downListTable.Rows[downloadIndex]["GUID"];
+            if (downListTable.Rows[downloadIndex]["status"].ToString() == "下载中")
+            {
+                downloadManager.StopAsync(taskID);
+            }
+            if (downListTable.Rows[downloadIndex]["status"].ToString() == "暂停下载")
+            {
+                //downloadManager.RunWorkerAsync(taskID);
+            }
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Guid taskID = (Guid)downListTable.Rows[downloadIndex]["GUID"];
+            downloadManager.CancleAsync(taskID);
+        }
+
+        /// <summary>
+        /// 全部停止
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pauseAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            downloadManager.StopAll();
+        }
+
+        /// <summary>
+        /// 全部删除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            downloadManager.CancleAll();
+        }
+
+        #endregion
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("explorer.exe", FileManager.DOWNLOAD_DIR); 
         }
 
     }

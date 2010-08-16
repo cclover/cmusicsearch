@@ -9,7 +9,7 @@ namespace CMusicSearch.MusicDownload
 {
     public class FileManager
     {
-        const string DOWNLOAD_DIR = @"D:\MusicDownload";
+        public static string DOWNLOAD_DIR = @"D:\MusicDownload";
         const string TMP_FILE_EXT = "mus";
         const string CONFIG_FILE_EXT = "cfg";
 
