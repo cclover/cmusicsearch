@@ -28,17 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.speedlab = new System.Windows.Forms.Label();
             this.labNetStatus = new System.Windows.Forms.Label();
             this.progressDownload = new System.Windows.Forms.ProgressBar();
             this.btnDownload = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.speedlab = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -48,7 +50,7 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(209, 21);
+            this.button1.Location = new System.Drawing.Point(181, 21);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 25);
@@ -63,8 +65,8 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Left;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -81,6 +83,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.speedlab);
             this.panel1.Controls.Add(this.labNetStatus);
             this.panel1.Controls.Add(this.progressDownload);
@@ -94,6 +98,14 @@
             this.panel1.Size = new System.Drawing.Size(827, 72);
             this.panel1.TabIndex = 2;
             // 
+            // speedlab
+            // 
+            this.speedlab.AutoSize = true;
+            this.speedlab.Location = new System.Drawing.Point(530, 31);
+            this.speedlab.Name = "speedlab";
+            this.speedlab.Size = new System.Drawing.Size(0, 13);
+            this.speedlab.TabIndex = 5;
+            // 
             // labNetStatus
             // 
             this.labNetStatus.AutoSize = true;
@@ -105,14 +117,14 @@
             // 
             // progressDownload
             // 
-            this.progressDownload.Location = new System.Drawing.Point(309, 24);
+            this.progressDownload.Location = new System.Drawing.Point(262, 21);
             this.progressDownload.Name = "progressDownload";
             this.progressDownload.Size = new System.Drawing.Size(215, 25);
             this.progressDownload.TabIndex = 3;
             // 
             // btnDownload
             // 
-            this.btnDownload.Location = new System.Drawing.Point(635, 24);
+            this.btnDownload.Location = new System.Drawing.Point(625, 21);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(75, 25);
             this.btnDownload.TabIndex = 2;
@@ -124,7 +136,7 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox1.Location = new System.Drawing.Point(34, 24);
+            this.textBox1.Location = new System.Drawing.Point(12, 24);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(151, 20);
@@ -151,13 +163,25 @@
             this.dataGridView2.TabIndex = 6;
             this.dataGridView2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseClick);
             // 
-            // speedlab
+            // button2
             // 
-            this.speedlab.AutoSize = true;
-            this.speedlab.Location = new System.Drawing.Point(530, 31);
-            this.speedlab.Name = "speedlab";
-            this.speedlab.Size = new System.Drawing.Size(0, 13);
-            this.speedlab.TabIndex = 5;
+            this.button2.Location = new System.Drawing.Point(520, 8);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "停止";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(520, 37);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "取消";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // MainForm
             // 
@@ -192,6 +216,8 @@
         private System.Windows.Forms.Button btnDownload;
         private System.Windows.Forms.Label labNetStatus;
         private System.Windows.Forms.Label speedlab;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }
 

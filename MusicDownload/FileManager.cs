@@ -36,10 +36,12 @@ namespace CMusicSearch.MusicDownload
             }
 
             int i = 1;
-            //判断要下载的文件是否存在同名的
-            while (File.Exists(string.Format("{0}\\{1}.{2}", DOWNLOAD_DIR, musicName, musicFormat)))
+            string name = musicName;
+            //判断要下载的文件是否存在同名的音乐文件或是mus文件
+            while (File.Exists(string.Format("{0}\\{1}.{2}", DOWNLOAD_DIR, musicName, musicFormat))
+                || File.Exists(string.Format("{0}\\{1}.{2}.{3}", DOWNLOAD_DIR, musicName, musicFormat,TMP_FILE_EXT)))
             {
-                musicName = string.Format("{0}({1})", musicName, i); //存在同名则更改名字
+                musicName = string.Format("{0}({1})", name, i); //存在同名则更改名字
                 i++;
             }
 
@@ -56,8 +58,6 @@ namespace CMusicSearch.MusicDownload
         /// <param name="status">下载状态</param>
         public static void FileDownloadOver(string savePath, string configPath, DownloadStatus status)
         {
-
-
             //下载完，删除配置文件，并修改下载文件名
             if (status == DownloadStatus.ST_OVER_DOWNLOAD)
             {
