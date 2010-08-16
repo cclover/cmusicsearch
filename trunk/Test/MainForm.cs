@@ -76,18 +76,6 @@ namespace CMusicSearch.Test
         }
 
 
-        /// <summary>
-        /// 提交下载歌曲任务
-        /// </summary>
-        private void btnDownload_Click(object sender, EventArgs e)
-        {
-            if (task != null)
-            {
-                task.DownloadTaskID = Guid.NewGuid();
-                downloadManager.RunWorkerAsync(task);
-            }
-        }
-
 
         /// <summary>
         /// 开始下载
@@ -184,6 +172,53 @@ namespace CMusicSearch.Test
                     MessageBox.Show("无法保存文件");
                 }
             }
+        }
+
+
+        /// <summary>
+        /// 提交下载歌曲任务
+        /// </summary>
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            if (task != null)
+            {
+                task.DownloadTaskID = Guid.NewGuid();
+                downloadManager.RunWorkerAsync(task);
+            }
+        }
+
+
+        /// <summary>
+        /// 暂停和继续
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (button2.Text == "停止")
+            {
+                downloadManager.StopAsync(task.DownloadTaskID);
+                button2.Text = "继续";
+            }
+            else
+            {
+                if (task != null)
+                {
+                    downloadManager.RunWorkerAsync(task);
+                }
+                button2.Text = "停止";
+            }
+        }
+
+        /// <summary>
+        /// 取消下载
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (task != null)
+                downloadManager.CancleAsync(task.DownloadTaskID);
         }
 
     }

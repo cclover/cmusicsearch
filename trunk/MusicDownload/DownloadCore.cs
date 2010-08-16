@@ -87,7 +87,9 @@ namespace CMusicSearch.MusicDownload
                                 {
                                     //设置下载状态和下载大小，状态为准备下载，并汇报进度
                                     downloadTask.DownloadStatus = DownloadStatus.ST_READY_DOWNLOAD;
-                                    downloadTask.FileSize = musicFileRes.ContentLength;
+
+                                    //此处要加上已下载的大小，因为断线续传时返回的ContentLength是从Range出到结束的大小
+                                    downloadTask.FileSize = musicFileRes.ContentLength + downloadTask.DownloadSize;
                                     downloadManager.ReportProgress(downloadTask);  //汇报当前下载进度
 
 
@@ -95,11 +97,11 @@ namespace CMusicSearch.MusicDownload
                                     while (downloadTask.DownloadSize < downloadTask.FileSize)
                                     {
                                         // 检查是否被取消
-                                        if (downloadManager.TaskCanStop(downloadTask.DownloadTaskID))
+                                        if (downloadManager.TaskCanCancle(downloadTask.DownloadTaskID))
                                         {
                                             //如果任务被取消退出
                                             downloadTask.DownloadStatus = DownloadStatus.ST_CANCEL_DOWNLOAD;
-                                            break; 
+                                            break;
                                         }
 
                                         // 检查是否被暂停
@@ -136,7 +138,7 @@ namespace CMusicSearch.MusicDownload
                                     // 如果完成，设置状态
                                     if (downloadTask.DownloadSize == downloadTask.FileSize)
                                     {
-                                        downloadTask.DownloadStatus = DownloadStatus.ST_OVER_DOWNLOAD ;
+                                        downloadTask.DownloadStatus = DownloadStatus.ST_OVER_DOWNLOAD;
                                     }
                                     //完成下载，程序退出
                                     return PageRequestResults.Success;
