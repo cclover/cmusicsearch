@@ -212,16 +212,19 @@ namespace CMusicSearch.Test
                 {
                     if (updateRow[0]["status"].ToString() != "等待下载")
                         updateRow[0]["status"] = "等待下载";
+                    updateRow[0]["speed"] = string.Empty;
                 }
                 else if (task.DownloadStatus == DownloadStatus.ST_ERROR_DOWNLOAD)
                 {
                     if (updateRow[0]["status"].ToString() != "下载失败")
                         updateRow[0]["status"] = "下载失败";
+                    updateRow[0]["speed"] = string.Empty;
                 }
                 else if (task.DownloadStatus == DownloadStatus.ST_STOP_DOWNLOAD)
                 {
                     if (updateRow[0]["status"].ToString() != "暂停下载")
                         updateRow[0]["status"] = "暂停下载";
+                    updateRow[0]["speed"] = string.Empty;
                 }
                 else if (task.DownloadStatus == DownloadStatus.ST_NONE)
                 {
