@@ -423,5 +423,16 @@ namespace CMusicSearch.Test
             System.Diagnostics.Process.Start("explorer.exe", FileManager.DOWNLOAD_DIR);
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (searchSelectIndex != -1)
+            {
+                string url = dataGridView1["MusicUrl", searchSelectIndex].Value.ToString();
+                musicPlayer.URL = url;
+                musicPlayer.Ctlcontrols.play();
+                
+            }
+        }
+
     }
 }

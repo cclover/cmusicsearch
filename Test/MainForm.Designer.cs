@@ -29,15 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.musicPlayer = new AxWMPLib.AxWindowsMediaPlayer();
             this.button2 = new System.Windows.Forms.Button();
             this.labNetStatus = new System.Windows.Forms.Label();
             this.btnDownload = new System.Windows.Forms.Button();
@@ -48,6 +51,14 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.MusicName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Size = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MusicSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Progress = new CMusicSearch.Test.DataGridViewProgressBarColumn();
+            this.Speed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.URL = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.GUID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuDownload = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,16 +68,9 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewProgressBarColumn1 = new CMusicSearch.Test.DataGridViewProgressBarColumn();
-            this.MusicName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Size = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MusicSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Progress = new CMusicSearch.Test.DataGridViewProgressBarColumn();
-            this.Speed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.URL = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.GUID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.musicPlayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -94,8 +98,8 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -115,6 +119,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.musicPlayer);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.labNetStatus);
             this.panel1.Controls.Add(this.btnDownload);
@@ -127,9 +133,29 @@
             this.panel1.Size = new System.Drawing.Size(922, 72);
             this.panel1.TabIndex = 2;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(494, 21);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "播放";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // musicPlayer
+            // 
+            this.musicPlayer.Enabled = true;
+            this.musicPlayer.Location = new System.Drawing.Point(450, 13);
+            this.musicPlayer.Name = "musicPlayer";
+            this.musicPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("musicPlayer.OcxState")));
+            this.musicPlayer.Size = new System.Drawing.Size(38, 36);
+            this.musicPlayer.TabIndex = 6;
+            this.musicPlayer.Visible = false;
+            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(588, 24);
+            this.button2.Location = new System.Drawing.Point(728, 20);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(111, 25);
             this.button2.TabIndex = 5;
@@ -140,7 +166,7 @@
             // labNetStatus
             // 
             this.labNetStatus.AutoSize = true;
-            this.labNetStatus.Location = new System.Drawing.Point(832, 27);
+            this.labNetStatus.Location = new System.Drawing.Point(845, 28);
             this.labNetStatus.Name = "labNetStatus";
             this.labNetStatus.Size = new System.Drawing.Size(35, 13);
             this.labNetStatus.TabIndex = 4;
@@ -148,7 +174,7 @@
             // 
             // btnDownload
             // 
-            this.btnDownload.Location = new System.Drawing.Point(720, 22);
+            this.btnDownload.Location = new System.Drawing.Point(614, 21);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(75, 25);
             this.btnDownload.TabIndex = 2;
@@ -228,14 +254,14 @@
             this.dataGridView3.AllowUserToDeleteRows = false;
             this.dataGridView3.AllowUserToResizeRows = false;
             this.dataGridView3.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MusicName,
@@ -256,6 +282,70 @@
             this.dataGridView3.Size = new System.Drawing.Size(437, 415);
             this.dataGridView3.TabIndex = 0;
             this.dataGridView3.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView3_CellMouseClick);
+            // 
+            // MusicName
+            // 
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.MusicName.DefaultCellStyle = dataGridViewCellStyle15;
+            this.MusicName.HeaderText = "歌曲名称";
+            this.MusicName.Name = "MusicName";
+            this.MusicName.ReadOnly = true;
+            this.MusicName.Width = 80;
+            // 
+            // Size
+            // 
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Size.DefaultCellStyle = dataGridViewCellStyle16;
+            this.Size.HeaderText = "文件大小";
+            this.Size.Name = "Size";
+            this.Size.Width = 80;
+            // 
+            // MusicSize
+            // 
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.MusicSize.DefaultCellStyle = dataGridViewCellStyle17;
+            this.MusicSize.HeaderText = "下载状态";
+            this.MusicSize.Name = "MusicSize";
+            this.MusicSize.ReadOnly = true;
+            this.MusicSize.Width = 80;
+            // 
+            // Progress
+            // 
+            this.Progress.HeaderText = "进度";
+            this.Progress.Maximum = 100;
+            this.Progress.Mimimum = 0;
+            this.Progress.Name = "Progress";
+            this.Progress.ReadOnly = true;
+            // 
+            // Speed
+            // 
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Speed.DefaultCellStyle = dataGridViewCellStyle18;
+            this.Speed.HeaderText = "下载速度";
+            this.Speed.Name = "Speed";
+            this.Speed.ReadOnly = true;
+            this.Speed.Width = 80;
+            // 
+            // URL
+            // 
+            this.URL.HeaderText = "下载地址";
+            this.URL.Name = "URL";
+            this.URL.ReadOnly = true;
+            this.URL.VisitedLinkColor = System.Drawing.Color.Red;
+            // 
+            // GUID
+            // 
+            this.GUID.HeaderText = "GUID";
+            this.GUID.Name = "GUID";
+            this.GUID.ReadOnly = true;
+            this.GUID.Visible = false;
+            // 
+            // Task
+            // 
+            this.Task.HeaderText = "Task";
+            this.Task.Name = "Task";
+            this.Task.ReadOnly = true;
+            this.Task.Visible = false;
             // 
             // contextMenuDownload
             // 
@@ -328,70 +418,6 @@
             this.dataGridViewProgressBarColumn1.Name = "dataGridViewProgressBarColumn1";
             this.dataGridViewProgressBarColumn1.ReadOnly = true;
             // 
-            // MusicName
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.MusicName.DefaultCellStyle = dataGridViewCellStyle3;
-            this.MusicName.HeaderText = "歌曲名称";
-            this.MusicName.Name = "MusicName";
-            this.MusicName.ReadOnly = true;
-            this.MusicName.Width = 80;
-            // 
-            // Size
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Size.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Size.HeaderText = "文件大小";
-            this.Size.Name = "Size";
-            this.Size.Width = 80;
-            // 
-            // MusicSize
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.MusicSize.DefaultCellStyle = dataGridViewCellStyle5;
-            this.MusicSize.HeaderText = "下载状态";
-            this.MusicSize.Name = "MusicSize";
-            this.MusicSize.ReadOnly = true;
-            this.MusicSize.Width = 80;
-            // 
-            // Progress
-            // 
-            this.Progress.HeaderText = "进度";
-            this.Progress.Maximum = 100;
-            this.Progress.Mimimum = 0;
-            this.Progress.Name = "Progress";
-            this.Progress.ReadOnly = true;
-            // 
-            // Speed
-            // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Speed.DefaultCellStyle = dataGridViewCellStyle6;
-            this.Speed.HeaderText = "下载速度";
-            this.Speed.Name = "Speed";
-            this.Speed.ReadOnly = true;
-            this.Speed.Width = 80;
-            // 
-            // URL
-            // 
-            this.URL.HeaderText = "下载地址";
-            this.URL.Name = "URL";
-            this.URL.ReadOnly = true;
-            this.URL.VisitedLinkColor = System.Drawing.Color.Red;
-            // 
-            // GUID
-            // 
-            this.GUID.HeaderText = "GUID";
-            this.GUID.Name = "GUID";
-            this.GUID.ReadOnly = true;
-            this.GUID.Visible = false;
-            // 
-            // Task
-            // 
-            this.Task.HeaderText = "Task";
-            this.Task.Name = "Task";
-            this.Task.ReadOnly = true;
-            this.Task.Visible = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -406,6 +432,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.musicPlayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -449,6 +476,8 @@
         private System.Windows.Forms.DataGridViewLinkColumn URL;
         private System.Windows.Forms.DataGridViewTextBoxColumn GUID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Task;
+        private AxWMPLib.AxWindowsMediaPlayer musicPlayer;
+        private System.Windows.Forms.Button button3;
     }
 }
 
