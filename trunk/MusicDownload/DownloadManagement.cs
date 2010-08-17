@@ -448,8 +448,20 @@ namespace CMusicSearch.MusicDownload
             //删除等待任务的同步对象
             foreach (DownloadMusicTask waitTask in waitDownloadTable.Values)
             {
+                //通知客户端
+                waitTask.DownloadStatus = DownloadStatus.ST_CANCEL_DOWNLOAD; //状态设置为取消
+                RunWorkerCompletedEventArgs arg = new RunWorkerCompletedEventArgs(waitTask, null, false);
+                if (asyncOperationtTable[waitTask.DownloadTaskID] != null)
+                {
+                    asyncOperationtTable[waitTask.DownloadTaskID].PostOperationCompleted(this.operationCompleted, arg);
+                }
+
+                //从同步管理表中删除
                 asyncOperationtTable[waitTask.DownloadTaskID] = null;
-                asyncOperationtTable.Remove(waitTask.DownloadTaskID);
+                lock (asyncOperationLock)
+                {
+                    asyncOperationtTable.Remove(waitTask.DownloadTaskID);
+                }
             }
 
             //删除所有在等待的任务

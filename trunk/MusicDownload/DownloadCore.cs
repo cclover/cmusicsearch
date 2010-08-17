@@ -92,6 +92,9 @@ namespace CMusicSearch.MusicDownload
                                     downloadTask.FileSize = musicFileRes.ContentLength + downloadTask.DownloadSize;
                                     downloadManager.ReportProgress(downloadTask);  //汇报当前下载进度
 
+                                    //用户统计速度
+                                    TimeSpan totalTimeSpan = TimeSpan.Zero;
+                                    int totalTimeSize = 0;
 
                                     //开始下载数据，检查是否下载完成
                                     while (downloadTask.DownloadSize < downloadTask.FileSize)
@@ -119,16 +122,21 @@ namespace CMusicSearch.MusicDownload
                                         int readSize = remoteStream.Read(buffer, 0, buffer.Length);
                                         TimeSpan readEnd = new TimeSpan(DateTime.Now.Ticks);
                                         TimeSpan ts = readEnd.Subtract(readStart).Duration();
+                                        totalTimeSpan += ts;
+                                        totalTimeSize += readSize;
 
                                         //写入文件
                                         downloadStream.Write(buffer, 0, readSize);
                                         downloadTask.DownloadSize += readSize;
 
-                                        //计算速度
-                                        if (ts.Milliseconds != 0)
-                                            downloadTask.DownloadSpeed = (readSize / ts.Milliseconds) * 1000;
-                                        else
-                                            downloadTask.DownloadSpeed = 0;
+                                        
+                                        //计算速度，400ms刷新一次
+                                        if (totalTimeSpan.Milliseconds > 400)
+                                        {
+                                            downloadTask.DownloadSpeed = (totalTimeSize / totalTimeSpan.Milliseconds) * 1000;
+                                            totalTimeSpan = TimeSpan.Zero;
+                                            totalTimeSize = 0;
+                                        }
 
                                         //汇报当前下载进度
                                         downloadTask.DownloadStatus = DownloadStatus.ST_IS_DOWNLOAD;
@@ -207,5 +215,6 @@ namespace CMusicSearch.MusicDownload
             }
             return PageRequestResults.UrlIsNull;
         }
+ 
     }
 }
