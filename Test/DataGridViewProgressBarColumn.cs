@@ -10,13 +10,17 @@ namespace CMusicSearch.Test
     /// </summary>
     public class DataGridViewProgressBarColumn : DataGridViewTextBoxColumn
     {
-        // Constructer
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DataGridViewProgressBarColumn()
         {
             this.CellTemplate = new DataGridViewProgressBarCell();
         }
 
-        // CellTemplate的取得和设定
+        /// <summary>
+        /// CellTemplate的取得和设定
+        /// </summary>
         public override DataGridViewCell CellTemplate
         {
             get
@@ -99,41 +103,36 @@ namespace CMusicSearch.Test
     /// </summary>
     public class DataGridViewProgressBarCell : DataGridViewTextBoxCell
     {
-        // Constructer
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DataGridViewProgressBarCell()
         {
-            this.maximumValue = 100;
-            this.mimimumValue = 0;
+            this.Maximum = 100;
+            this.Mimimum = 0;
         }
 
-        private int maximumValue;
+        /// <summary>
+        /// 最大值
+        /// </summary>
         public int Maximum
         {
-            get
-            {
-                return this.maximumValue;
-            }
-            set
-            {
-                this.maximumValue = value;
-            }
+            get;
+            set;
         }
 
-        private int mimimumValue;
+        /// <summary>
+        /// 最小值
+        /// </summary>
         public int Mimimum
         {
-            get
-            {
-                return this.mimimumValue;
-            }
-            set
-            {
-                this.mimimumValue = value;
-            }
+            get;
+            set;
         }
 
-        //指定单元格的值的数据类型
-        //在这里指定为整数
+        /// <summary>
+        /// 指定单元格的值的数据类型,在这里指定为整数
+        /// </summary>
         public override Type ValueType
         {
             get
@@ -142,7 +141,9 @@ namespace CMusicSearch.Test
             }
         }
 
-        //指定新行单元格的值
+        /// <summary>
+        /// 指定新行单元格的值
+        /// </summary>
         public override object DefaultNewRowValue
         {
             get
@@ -151,43 +152,49 @@ namespace CMusicSearch.Test
             }
         }
 
-        //为了追加新属性，必需重载Clone方法
+
+        /// <summary>
+        /// 为了追加新属性，必需重载Clone方法
+        /// </summary>
+        /// <returns></returns>
         public override object Clone()
         {
-            DataGridViewProgressBarCell cell =
-                (DataGridViewProgressBarCell)base.Clone();
+            DataGridViewProgressBarCell cell = (DataGridViewProgressBarCell)base.Clone();
             cell.Maximum = this.Maximum;
             cell.Mimimum = this.Mimimum;
             return cell;
         }
 
-        protected override void Paint(Graphics graphics,
-            Rectangle clipBounds, Rectangle cellBounds,
-
-            int rowIndex, DataGridViewElementStates cellState,
-            object value, object formattedValue, string errorText,
-            DataGridViewCellStyle cellStyle,
-            DataGridViewAdvancedBorderStyle advancedBorderStyle,
-            DataGridViewPaintParts paintParts)
+        protected override void Paint(Graphics graphics, Rectangle clipBounds, Rectangle cellBounds, int rowIndex,
+                                      DataGridViewElementStates cellState, object value, object formattedValue,
+                                      string errorText, DataGridViewCellStyle cellStyle,
+                                      DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
         {
+
+            //// 缓冲区上下文
+            //BufferedGraphicsContext currentContext = BufferedGraphicsManager.Current;
+            //// 自定义缓冲区
+            //BufferedGraphics myBuffer = currentContext.Allocate(graphics, cellBounds);
+            //// 绘图graphics
+            //Graphics g = myBuffer.Graphics;
+            //g.Clear(Color.Black);
+            ////g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;   // 反锯齿
+
             //设定值
             int intValue = 0;
             if (value is int)
                 intValue = (int)value;
-            if (intValue < this.mimimumValue)
-                intValue = this.mimimumValue;
-            if (intValue > this.maximumValue)
-                intValue = this.maximumValue;
+            if (intValue < this.Mimimum)
+                intValue = this.Mimimum;
+            if (intValue > this.Maximum)
+                intValue = this.Maximum;
             //除法计算
-            double rate = (double)(intValue - this.mimimumValue) /
-                (this.maximumValue - this.mimimumValue);
+            double rate = (double)(intValue - this.Mimimum) / (this.Maximum - this.Mimimum);
 
             //描绘单元格的边框
-            if ((paintParts & DataGridViewPaintParts.Border) ==
-                DataGridViewPaintParts.Border)
+            if ((paintParts & DataGridViewPaintParts.Border) == DataGridViewPaintParts.Border)
             {
-                this.PaintBorder(graphics, clipBounds, cellBounds,
-                    cellStyle, advancedBorderStyle);
+                this.PaintBorder(graphics, clipBounds, cellBounds, cellStyle, advancedBorderStyle);
             }
 
             //取得边框的范围
@@ -200,13 +207,10 @@ namespace CMusicSearch.Test
 
             //设定背景色
             //被选择时和没有被选择时，颜色变换
-            bool isSelected =
-                (cellState & DataGridViewElementStates.Selected) ==
-                DataGridViewElementStates.Selected;
+            bool isSelected = (cellState & DataGridViewElementStates.Selected) == DataGridViewElementStates.Selected;
             Color bkColor;
             if (isSelected &&
-                (paintParts & DataGridViewPaintParts.SelectionBackground) ==
-                    DataGridViewPaintParts.SelectionBackground)
+                (paintParts & DataGridViewPaintParts.SelectionBackground) == DataGridViewPaintParts.SelectionBackground)
             {
                 bkColor = cellStyle.SelectionBackColor;
             }
@@ -215,8 +219,7 @@ namespace CMusicSearch.Test
                 bkColor = cellStyle.BackColor;
             }
             //描绘背景
-            if ((paintParts & DataGridViewPaintParts.Background) ==
-                DataGridViewPaintParts.Background)
+            if ((paintParts & DataGridViewPaintParts.Background) == DataGridViewPaintParts.Background)
             {
                 using (SolidBrush backBrush = new SolidBrush(bkColor))
                 {
@@ -230,8 +233,7 @@ namespace CMusicSearch.Test
             paintRect.Height -= cellStyle.Padding.Vertical;
 
             //描绘ProgressBar
-            if ((paintParts & DataGridViewPaintParts.ContentForeground) ==
-                DataGridViewPaintParts.ContentForeground)
+            if ((paintParts & DataGridViewPaintParts.ContentForeground) == DataGridViewPaintParts.ContentForeground)
             {
                 if (ProgressBarRenderer.IsSupported)
                 {
@@ -261,8 +263,7 @@ namespace CMusicSearch.Test
             //表示光标移动的框
             if (this.DataGridView.CurrentCellAddress.X == this.ColumnIndex &&
                 this.DataGridView.CurrentCellAddress.Y == this.RowIndex &&
-                (paintParts & DataGridViewPaintParts.Focus) ==
-                    DataGridViewPaintParts.Focus &&
+                (paintParts & DataGridViewPaintParts.Focus) == DataGridViewPaintParts.Focus &&
                 this.DataGridView.Focused)
             {
                 //设定大小适当的框
@@ -283,7 +284,7 @@ namespace CMusicSearch.Test
                 //string txt = formattedValue.ToString();
 
                 TextFormatFlags flags = TextFormatFlags.HorizontalCenter |
-                    TextFormatFlags.VerticalCenter;
+                    TextFormatFlags.VerticalCenter | TextFormatFlags.PreserveGraphicsClipping;
                 //设定颜色
                 Color fColor = cellStyle.ForeColor;
                 //if (isSelected)
@@ -292,8 +293,8 @@ namespace CMusicSearch.Test
                 //    fColor = cellStyle.ForeColor;
                 //描绘文字列
                 paintRect.Inflate(-2, -2);
-                TextRenderer.DrawText(graphics, txt, cellStyle.Font,
-                   paintRect, fColor, flags);
+                TextRenderer.DrawText(graphics, txt, cellStyle.Font,paintRect, fColor, flags);
+                //g.DrawString(txt, cellStyle.Font, Brushes.Black, paintRect);
             }
 
             //表示错误图标
@@ -309,6 +310,14 @@ namespace CMusicSearch.Test
                 //描绘错误图标
                 this.PaintErrorIcon(graphics, iconBounds, cellBounds, errorText);
             }
+
+            //// 自定义缓冲中的图形渲染在屏幕上
+            //myBuffer.Render();
+            //// 释放资源
+            //myBuffer.Dispose();
+
+            //g.Dispose();
+
         }
     }
 }
