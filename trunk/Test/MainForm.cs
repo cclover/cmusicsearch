@@ -109,6 +109,7 @@ namespace CMusicSearch.Test
                         //多线程使用UI控件
                         this.Invoke(new Action<List<MusicInfo>, List<MusicLrcInfo>>(DataBind), new object[] { list, lstlrc });
                     });
+                searchThread.IsBackground = true;
                 searchThread.Start();
 
             }
